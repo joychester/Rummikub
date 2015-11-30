@@ -1,0 +1,52 @@
+.container-fluid
+    .row
+        .col-md-2.sidebar
+            %ul.nav.nav-sidebar.nav-list
+                %li
+                    %a Hi, <i>#{@login_name}</i>
+                %li
+                    %a.active{:href => "#"} 
+                        %i.glyphicon.glyphicon-home.icon-white
+                        Overview
+                %li
+                    %a{:href => "#"} 
+                        %i.glyphicon.glyphicon-stats
+                        Trend
+                %li
+                    %a{:href => "#"} 
+                        %i.glyphicon.glyphicon-tower
+                        Analysis
+                %li
+                    %a{:href => "/logout"}
+                        %i.glyphicon.glyphicon-off
+                        Logout
+        .col-md-10
+            %h2.page-header Dashboard
+            .row
+                .highcharts-container#perftrend{:style => "width:100%; height:400px;"}
+:javascript
+        $(function () { 
+            $('#perftrend').highcharts({
+                chart: {
+                    type: 'area'
+                },
+                title: {
+                    text: 'Perf trend'
+                },
+                xAxis: {
+                    categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Response Time'
+                    }
+                },
+                series: [{
+                    name: 'Sell_API',
+                    data: [100, 120, 125, 110, 99, 130, 105]
+                }, {
+                    name: 'Buy_API',
+                    data: [220, 220, 225, 200, 199, 230, 205]
+                }]
+            });
+        });

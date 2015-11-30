@@ -1,0 +1,6 @@
+# config.yml
+
+sinatraport: 4567
+dbconnect: postgres://postgres:root@localhost:5432/sinatra_web
+loggerlevel: INFO #: DEBUG, INFO, WARN, ERROR, FATAL, or UNKNOWN
+loggerpath: log/server.log #STDOUT as default if this is nil

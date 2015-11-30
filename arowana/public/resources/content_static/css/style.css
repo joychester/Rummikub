@@ -1,0 +1,153 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+div {
+    display: block;
+}
+
+p {
+    margin: 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 300;
+    text-align: left;
+    display: block;
+    font-family: Arial;
+}
+
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    z-index: 1000;
+    background: #fff;
+    border-bottom: solid;
+    border-color: blue;
+}
+
+.stubhub_logo {
+    position: absolute;
+    left: 10px;
+    top: 0px;
+}
+
+.front-bg {
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    left: -50%;
+    background: #000;
+}
+
+.front-image {
+    margin: auto;
+    min-width: 50%;
+    min-height: 50%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+}
+
+.front-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 838px;
+    height: 410px;
+    margin: -154px 0 0 -418px;
+}
+
+.front-welcome {
+    width: 520px;
+    height: 410px;
+    float: left;
+}
+
+.front-welcome-text {
+    position: absolute;
+    height: 328px;
+    width: 470px;
+    top:0;
+    bottom: 50%;
+    text-align: left;
+    color: #fff;
+    
+}
+
+.front-signin {
+    float: right;
+    margin-bottom: 10px;
+    width: 300px;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.signin {
+    margin: 12px 12px 6px;
+}
+
+.form-group {
+    position: relative;
+    height: 33px;
+}
+
+.text-input {
+    width: 266px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.checkbox {
+    position: relative;
+    margin-left: 20px;
+    margin-top: 30px;
+    font-weight: bold;
+    color: #337ab7;
+}
+
+.btn {
+    margin-bottom: 6px;
+}
+
+.footer {
+    position: absolute;
+    text-align: center;
+    bottom: 30px;
+    font-size: 12px;
+    width: 100%;
+    color: gray;
+}
+
+.chrome_logo {
+    border-radius: 1em;
+}
+
+.container-fluid {
+    position: relative;
+    top: 40px;
+}
+
+.active {
+    background-color: blue;
+    color: white;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.page-title {
+    text-align: center;
+    font-family: Goudy Old Style;
+    font-weight: bold;
+    font-size: 40px;
+    color: #686868 ;
+}
