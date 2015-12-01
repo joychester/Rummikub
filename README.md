@@ -7,6 +7,11 @@ RUM solutions POC, using Custom metrics/Boomerang/BoomCatch/ServiceWorker:
 > * Install Boomcatch server  
 > * Add service worker  
 
+### Minify js with uglifyjs  
+> * ~/workspace (master) $ git clone https://github.com/lognormal/boomerang.git  
+> * ~/workspace/boomerang (master) $ npm install uglify-js -g  
+> * ~/workspace/boomerang (master) $ make PLUGINS="plugins/rt.js" MINIFIER="uglifyjs -c -m"  
+
 PS:add folder to repo as following  
 ```
 git add --all arowana/  
