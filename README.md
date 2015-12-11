@@ -12,6 +12,9 @@ RUM solutions POC, using Custom metrics/Boomerang/BoomCatch/ServiceWorker:
 > * ~/workspace/boomerang (master) $ npm install uglify-js -g  
 > * ~/workspace/boomerang (master) $ make PLUGINS="plugins/rt.js" MINIFIER="uglifyjs -c -m"  
 
+Run boomcatch:
+`boomcatch --port 8888 --host 127.0.0.1`
+
 PS:add folder to repo as following  
 ```
 git add --all arowana/  

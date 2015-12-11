@@ -2,11 +2,16 @@
 module Arowana
     module RestAPI
         class RUM < BaseAPI
+            get '/rest/angular' do
+                number = Random.new_seed   
+                return number.to_s
+            end
             
             #restiming plugin, trigger POST REST
             post '/rest/beacon' do 
                 p data = request.body.read.to_s
 	            return 'POST service is ready for use!'
+            
             end
             
             #rt plugin, will trigger the GET REST

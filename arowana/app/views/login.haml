@@ -1,31 +1,36 @@
-.front-container#front-container
+.front-container#front-container{"ng-app": "rum"}
     //inspiration: https://speedcurve.com/blog/user-timing-and-custom-metrics/
-    .front-bg
-        //The image onload mark reflects the render time when the image download takes longer than any blocking resources.
-        %img.front-image{:src => "/resources/content_static/image/front_bg.jpg", :onload => "performance.mark('hero img onload');"}
-    :javascript
-        //The inline script mark reflects the render time when the image downloads quickly 
-        //but blocking resources prevent it from being rendered.
-        performance.mark("hero img loaded");
-        performance.measure("PageLoadTime", "stylesheets done blocking", "hero img loaded");
-    .front-card
-        .front-welcome
-            .front-welcome-text 
-                %h1 Welcome to Perfhub!
-                %p Get the latest Page and API Performance and track any performance related stuff here!
-        .front-signin
-            %form.signin{:role => "form"}
-                .form-group
-                    %label{:for => "emailaddr"}
-                    %input.text-input.form-control#email{:type => "email", :placeholder => "Email"}
-                .form-group
-                    %label{:for => "password"}
-                    %input.text-input.form-control#passwd{:type => "password", :placeholder => "Password"}
-                .form-group
-                    .checkbox
-                        %input{:type => "checkbox", :value => "1", :checked => "checked"}
-                        %span Remember me
-                %button.btn.btn-primary#signIn_btn{:type => "button"} Sign in
+    %div{"ng-controller": "RUMController as rumCtrl"}
+        .front-bg
+            //The image onload mark reflects the render time when the image download takes longer than any blocking resources.
+            %img.front-image{:src => "/resources/content_static/image/front_bg.jpg", 'my-click':"changeNumber()", :onload => "performance.mark('hero img onload');"}
+        :javascript
+            //The inline script mark reflects the render time when the image downloads quickly 
+            //but blocking resources prevent it from being rendered.
+            performance.mark("hero img loaded");
+            performance.measure("PageLoadTime", "stylesheets done blocking", "hero img loaded");
+        .front-card
+            .front-welcome
+                .front-welcome-text 
+                    %h1 Welcome to Perfhub!
+                    %p Get the latest Page and API Performance and track any performance related stuff here!
+                    %p This is very very mad world: {{random}}
+            .front-signin
+                %form.signin{:role => "form"}
+                    .form-group
+                        %label{:for => "emailaddr"}
+                        %input.text-input.form-control#email{:type => "email", :placeholder => "Email"}
+                    .form-group
+                        %label{:for => "password"}
+                        %input.text-input.form-control#passwd{:type => "password", :placeholder => "Password"}
+                    .form-group
+                        .checkbox
+                            %input{:type => "checkbox", :value => "1", :checked => "checked"}
+                            %span Remember me
+                    %button.btn.btn-primary#signIn_btn{:type => "button"} Sign in
+
+%script{:src => "/resources/content_static/js/model.js", :type => "text/javascript"}
+
 
 :javascript
     $("#signIn_btn").click( function () {
