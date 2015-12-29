@@ -288,9 +288,10 @@ impl = {
 		}
 
 		if (this.public_events.hasOwnProperty(e_name)) {
+			BOOMR.debug(e_name+"  there is event");
 			dispatchEvent(this.public_events[e_name], data);
 		}
-
+        BOOMR.debug(e_name+"  Start to handle event");
 		handlers = this.events[e_name];
 
 		for(i=0; i<handlers.length; i++) {
@@ -978,6 +979,21 @@ boomr = {
 
 		return this;
 	},
+	
+	clearVars: function(){
+		BOOMR.debug("Watch out! Your are clearing Vars!!!!");
+	    impl.vars={};	
+	},
+	
+	clearVarsByWL: function(whiteList){
+		for(name in impl.vars){
+			if(whiteList.indexOf(name) === -1) {
+				delete impl.vars.name;
+		     	BOOMR.debug("Hey I'm clearing vars."+ name);
+			}
+		}
+	
+	},
 
 	hasVar: function(name) {
 		return impl.vars.hasOwnProperty(name);
@@ -1006,26 +1022,13 @@ boomr = {
 			});
 		}
 	},
+	
+	sendMyData: function(name,value){
+		//Send customize data without check plugins. 
+		BOOMR.addVar(name,value);
+		
+        var k, form, furl, img, length, errors=[];
 
-	sendBeacon: function() {
-		var k, form, furl, img, length, errors=[];
-
-		BOOMR.debug("Checking if we can send beacon");
-
-		// At this point someone is ready to send the beacon.  We send
-		// the beacon only if all plugins have finished doing what they
-		// wanted to do
-		for(k in this.plugins) {
-			if(this.plugins.hasOwnProperty(k)) {
-				if(impl.disabled_plugins[k]) {
-					continue;
-				}
-				if(!this.plugins[k].is_complete()) {
-					BOOMR.debug("Plugin " + k + " is not complete, deferring beacon send");
-					return false;
-				}
-			}
-		}
 
 		// use d.URL instead of location.href because of a safari bug
 		impl.vars.pgu = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
@@ -1036,18 +1039,16 @@ boomr = {
 		if(impl.vars.pgu === impl.vars.u) {
 			delete impl.vars.pgu;
 		}
-
-		impl.vars.v = BOOMR.version;
-
-		if(BOOMR.visibilityState()) {
-			impl.vars["vis.st"] = BOOMR.visibilityState();
-			if(BOOMR.lastVisibilityEvent.visible) {
-				impl.vars["vis.lv"] = BOOMR.now() - BOOMR.lastVisibilityEvent.visible;
-			}
-			if(BOOMR.lastVisibilityEvent.hidden) {
-				impl.vars["vis.lh"] = BOOMR.now() - BOOMR.lastVisibilityEvent.hidden;
-			}
-		}
+        // We don't need this in ajax call data.
+		// if(BOOMR.visibilityState()) {
+		// 	impl.vars["vis.st"] = BOOMR.visibilityState();
+		// 	if(BOOMR.lastVisibilityEvent.visible) {
+		// 		impl.vars["vis.lv"] = BOOMR.now() - BOOMR.lastVisibilityEvent.visible;
+		// 	}
+		// 	if(BOOMR.lastVisibilityEvent.hidden) {
+		// 		impl.vars["vis.lh"] = BOOMR.now() - BOOMR.lastVisibilityEvent.hidden;
+		// 	}
+		// }
 
 		if(w !== window) {
 			impl.vars["if"] = "";
@@ -1090,8 +1091,108 @@ boomr = {
 
 		// using 2000 here as a de facto maximum URL length based on:
 		// http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+		console.log("Really Ready to fire beacon:" + window.performance.now());
 		BOOMR.utils.sendData(form, impl.beacon_type === "AUTO" ? (length > 2000 ? "POST" : "GET") : "POST");
 
+		return true;
+	},
+
+	sendBeacon: function() {
+		var k, form, furl, img, length, errors=[];
+
+		BOOMR.debug("Checking if we can send beacon");
+
+		// At this point someone is ready to send the beacon.  We send
+		// the beacon only if all plugins have finished doing what they
+		// wanted to do
+		for(k in this.plugins) {
+			if(this.plugins.hasOwnProperty(k)) {
+				if(impl.disabled_plugins[k]) {
+					continue;
+				}
+				if(!this.plugins[k].is_complete()) {
+					BOOMR.debug("Plugin " + k + " is not complete, deferring beacon send");
+					return false;
+				}
+			}
+		}
+
+		// use d.URL instead of location.href because of a safari bug
+		impl.vars.pgu = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
+		if(!impl.vars.u) {
+			impl.vars.u = impl.vars.pgu;
+		}
+
+		if(impl.vars.pgu === impl.vars.u) {
+			delete impl.vars.pgu;
+		}
+		
+        // impl.vars.v = BOOMR.version;
+
+		if(BOOMR.visibilityState()) {
+			impl.vars["vis.st"] = BOOMR.visibilityState();
+			if(BOOMR.lastVisibilityEvent.visible) {
+				impl.vars["vis.lv"] = BOOMR.now() - BOOMR.lastVisibilityEvent.visible;
+			}
+			if(BOOMR.lastVisibilityEvent.hidden) {
+				impl.vars["vis.lh"] = BOOMR.now() - BOOMR.lastVisibilityEvent.hidden;
+			}
+		}
+
+		if(w !== window) {
+			impl.vars["if"] = "";
+		}
+
+		for (k in impl.errors) {
+			if (impl.errors.hasOwnProperty(k)) {
+				errors.push(k + (impl.errors[k] > 1 ? " (*" + impl.errors[k] + ")" : ""));
+			}
+		}
+
+		if(errors.length > 0) {
+			impl.vars.errors = errors.join("\n");
+		}
+
+		impl.errors = {};
+        
+       
+        
+		// If we reach here, all plugins have completed
+		impl.fireEvent("before_beacon", impl.vars);
+
+		// Don't send a beacon if no beacon_url has been set
+		// you would do this if you want to do some fancy beacon handling
+		// in the `before_beacon` event instead of a simple GET request
+		BOOMR.debug("Ready to send beacon: " + BOOMR.utils.objectToString(impl.vars));
+		if(!impl.beacon_url) {
+			BOOMR.debug("No beacon URL, so skipping.");
+			return true;
+		}
+        var varWhiteList =['user_timing','t_resp','t_page','t_done','t_other','u'];
+        for(name in impl.vars){
+        	if(varWhiteList.indexOf(name) === -1)  delete impl.vars[ name ];
+		}
+		
+		for(name in impl.vars){
+			BOOMR.debug(name);
+		}
+	
+		form = document.createElement("form");
+		length = BOOMR.utils.pushVars(form, impl.vars);
+ 
+		// If we reach here, we've transferred all vars to the beacon URL.
+		impl.fireEvent("onbeacon", impl.vars);
+
+		if(!length) {
+			// do not make the request if there is no data
+			return this;
+		}
+
+		// using 2000 here as a de facto maximum URL length based on:
+		// http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+		console.log("Really Ready to fire beacon:" + window.performance.now());
+		BOOMR.utils.sendData(form, impl.beacon_type === "AUTO" ? (length > 2000 ? "POST" : "GET") : "POST");
+        BOOMR.clearVars();
 		return true;
 	}
 
