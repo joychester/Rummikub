@@ -3,7 +3,11 @@ var app = angular.module('rum',[]);
 app.controller('RUMController',function($scope, $http){
    $scope.changeNumber = function(){
       return $http.get('/rest/angular').success(function(data){
-                                      $scope.random = data;
+                                     if($('#ajaxEle').length<1) {
+                                         $('.welcome').append(' <p id="ajaxEle">This is a very very mad world: '+data+'</p>');
+                                     }else{
+                                         $('#ajaxEle').text('This is a very very mad world: '+data);
+                                     }
                                      }
     );
    }

@@ -11,10 +11,10 @@
             performance.measure("PageLoadTime", "stylesheets done blocking", "hero img loaded");
         .front-card
             .front-welcome
-                .front-welcome-text 
+                .front-welcome-text.welcome 
                     %h1 Welcome to Perfhub!
                     %p Get the latest Page and API Performance and track any performance related stuff here!
-                    %p{:id => "ajaxEle"} This is very very mad world: {{random}}
+                    
             .front-signin
                 %form.signin{:role => "form"}
                     .form-group
