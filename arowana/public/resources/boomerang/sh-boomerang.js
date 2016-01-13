@@ -1892,11 +1892,6 @@ BOOMR.plugins.RT = {
 
 }(window, jQuery, _));
 
-/****************************************************************
- *  Boomerage Public Interfarce - StubHub
- *  Copyright (c) 2009 - 2014 StubHub, Inc. All rights reserved.
- *****************************************************************/
-
 window.BM = function (_) {
 
     var VAR_APP_NAME = 'sh_app_name',
