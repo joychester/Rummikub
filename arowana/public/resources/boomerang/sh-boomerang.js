@@ -1892,8 +1892,6 @@ BOOMR.plugins.RT = {
 
 }(window, jQuery, _));
 
-
-
 window.BM = function (_) {
 
     var VAR_APP_NAME = 'sh_app_name',
