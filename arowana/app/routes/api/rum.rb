@@ -4,6 +4,7 @@ module Arowana
         class RUM < BaseAPI
             get '/rest/angular' do
                 number = Random.new_seed   
+                sleep(20)
                 return number.to_s
             end
             

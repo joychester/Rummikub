@@ -234,6 +234,8 @@ impl = {
 	onloadfired: false,
 
 	handlers_attached: false,
+	
+    timeout: 15000,
 	events: {
 		"page_ready": [],
 		"page_unload": [],
@@ -258,6 +260,7 @@ impl = {
 	errors: {},
 
 	disabled_plugins: {},
+	
 
 	xb_handler: function(type) {
 		return function(ev) {
@@ -405,8 +408,8 @@ boomr = {
 			var value, nameval, savedval, c, exp;
 
 			if(!name || !impl.site_domain) {
-				BOOMR.debug("No cookie name or site domain: " + name + "/" + impl.site_domain);
-				return false;
+				BOOMR.debug("No cookie name or site domain: " + name + "/" + impl.sitze_domain);
+				return false;	
 			}
 
 			value = this.objectToString(subcookies, "&");
@@ -720,6 +723,12 @@ boomr = {
 		if(!this.log) {
 			this.log = function(/* m,l,s */) {};
 		}
+		
+		var t = impl.timeout;	  
+        impl.timeoutID = w.setTimeout(function(){
+                BOOMR.sendMyData("timeout",t);
+                impl.onloadfired = true;
+            }, t);
 
 		for(k in this.plugins) {
 			if(this.plugins.hasOwnProperty(k)) {
@@ -809,6 +818,9 @@ boomr = {
 		}());
 
 		impl.handlers_attached = true;
+		
+
+        
 		return this;
 	},
 
@@ -822,6 +834,7 @@ boomr = {
 		}
 		impl.fireEvent("page_ready", ev);
 		impl.onloadfired = true;
+	    w.clearTimeout(impl.timeoutID);
 		return this;
 	},
 
@@ -1026,7 +1039,7 @@ boomr = {
 	sendMyData: function(name,value){
 		//Send customize data without check plugins. 
 		BOOMR.addVar(name,value);
-		
+		BOOMR.debug("What happened");
         var k, form, furl, img, length, errors=[];
 
 
@@ -1168,15 +1181,10 @@ boomr = {
 			BOOMR.debug("No beacon URL, so skipping.");
 			return true;
 		}
-        var varWhiteList =['user_timing','t_resp','t_page','t_done','t_other','u'];
+        var varWhiteList =["user_timing","t_resp","t_page","t_done","t_other","u"];
         for(name in impl.vars){
         	if(varWhiteList.indexOf(name) === -1)  delete impl.vars[ name ];
-		}
-		
-		for(name in impl.vars){
-			BOOMR.debug(name);
-		}
-	
+        }
 		form = document.createElement("form");
 		length = BOOMR.utils.pushVars(form, impl.vars);
  
