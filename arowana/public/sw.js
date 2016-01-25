@@ -31,11 +31,11 @@ self.addEventListener("install", function(event) {
 self.addEventListener('fetch',function(event){
  
       var fetched_url = event.request.url;
-      console.log(fetched_url);
+      // console.log(fetched_url);
         // Loop across all the requests and save the timing data.
       if (fetched_url === 'https://tenseconds-joychester.c9users.io/resources/bootstrap/js/bootstrap.min.js') {
         var requests = self.performance.getEntriesByType("resource");
-        console.log(requests[0].name + " = "+ requests[0].responseStart);
+        // console.log(requests[0].name + " = "+ requests[0].responseStart);
       }
   
 });

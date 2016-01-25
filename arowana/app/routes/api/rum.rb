@@ -3,10 +3,12 @@ module Arowana
     module RestAPI
         class RUM < BaseAPI
             get '/rest/angular' do
+                p Time.now().to_f
                 number = Random.new_seed   
-                sleep(20)
+                # sleep(20)
                 return number.to_s
             end
+
             
             #restiming plugin, trigger POST REST
             post '/rest/beacon' do 

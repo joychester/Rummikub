@@ -236,6 +236,9 @@ impl = {
 	handlers_attached: false,
 	
     timeout: 15000,
+    
+    beacon_switch: true,
+    
 	events: {
 		"page_ready": [],
 		"page_unload": [],
@@ -385,6 +388,15 @@ boomr = {
 
 			return value.join(separator);
 		},
+		
+	    encodeString: function(str){
+	    	// Create Base64 Object
+			var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
+			
+			// Encode the String
+			return Base64.encode(str);
+		
+	    },
 
 		getCookie: function(name) {
 			if(!name) {
@@ -703,7 +715,7 @@ boomr = {
 
 	init: function(config) {
 		var i, k,
-		    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons"];
+		    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons", "timeout", "beacon_switch"];
 
 		BOOMR_check_doc_domain();
 
@@ -724,11 +736,14 @@ boomr = {
 			this.log = function(/* m,l,s */) {};
 		}
 		
-		var t = impl.timeout;	  
-        impl.timeoutID = w.setTimeout(function(){
-                BOOMR.sendMyData("timeout",t);
-                impl.onloadfired = true;
-            }, t);
+        if(impl.beacon_switch === true){
+			// set timeout to beacon
+			var t = impl.timeout;
+	        impl.timeoutID = w.setTimeout(function(){
+	        	    BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
+	                BOOMR.page_ready();
+	            }, t);
+        }
 
 		for(k in this.plugins) {
 			if(this.plugins.hasOwnProperty(k)) {
@@ -834,8 +849,14 @@ boomr = {
 		}
 		impl.fireEvent("page_ready", ev);
 		impl.onloadfired = true;
-	    w.clearTimeout(impl.timeoutID);
+		BOOMR.disableTimeOut();
 		return this;
+	},
+	
+	disableTimeOut: function(){
+		if(typeof impl.timeoutID === "undefined"){
+			w.clearTimeout(impl.timeoutID);
+		}
 	},
 
 	setImmediate: function(fn, data, cb_data, cb_scope) {
@@ -1114,7 +1135,8 @@ boomr = {
 		var k, form, furl, img, length, errors=[];
 
 		BOOMR.debug("Checking if we can send beacon");
-
+        
+        if(impl.beacon_switch === false) return;
 		// At this point someone is ready to send the beacon.  We send
 		// the beacon only if all plugins have finished doing what they
 		// wanted to do
@@ -1173,6 +1195,10 @@ boomr = {
 		// If we reach here, all plugins have completed
 		impl.fireEvent("before_beacon", impl.vars);
 
+        // add hash String for security
+        var hashString = BOOMR.utils.encodeString(window.performance.navigationStart+"_"+impl.vars["user_timing"]+"_"+Date.now());
+        BOOMR.addVar("_",hashString);
+        
 		// Don't send a beacon if no beacon_url has been set
 		// you would do this if you want to do some fancy beacon handling
 		// in the `before_beacon` event instead of a simple GET request
@@ -1181,10 +1207,11 @@ boomr = {
 			BOOMR.debug("No beacon URL, so skipping.");
 			return true;
 		}
-        var varWhiteList =["user_timing","t_resp","t_page","t_done","t_other","u"];
+        var varWhiteList =["user_timing","t_resp","t_page","t_done","t_other","u","_"];
         for(name in impl.vars){
         	if(varWhiteList.indexOf(name) === -1)  delete impl.vars[ name ];
         }
+        
 		form = document.createElement("form");
 		length = BOOMR.utils.pushVars(form, impl.vars);
  

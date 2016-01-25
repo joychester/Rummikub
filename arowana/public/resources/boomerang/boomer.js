@@ -1,8 +1,7 @@
 BOOMR.init({
     beacon_url: "/rest/beacon",
-    autorun: false
-    // RT: {
-    //     //cookie_exp:1
-    // }
+    autorun: false,
+    timeout: 10000,
+    beacon_switch: true
 });
 
