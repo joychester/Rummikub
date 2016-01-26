@@ -34,7 +34,7 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
     We use [uglifyJS2] to compress annd minify our boomerang related js script.
 ```
   > * ~/workspace/boomerang (master) $ npm install uglify-js -g  
-  > * ~/workspace/boomerang (master) $ make PLUGINS="plugins/rt.js boomer_init." MINIFIER="uglifyjs -c -m"  
+  > * ~/workspace/boomerang (master) $ make PLUGINS="plugins/rt.js boomer_init.js" MINIFIER="uglifyjs -c -m"  
 ```
 *  **Step 5: Asynchronously include the script on your page:**
 
