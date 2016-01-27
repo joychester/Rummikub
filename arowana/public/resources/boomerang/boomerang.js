@@ -740,14 +740,19 @@ boomr = {
         if(impl.beacon_switch === true){
 			// set timeout to beacon
 			var t = impl.timeout;
-	        impl.timeoutID = w.setTimeout(function(){
-	        	    BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
-	                BOOMR.page_ready();
-	            }, t);
+	      impl.timeoutID = w.setTimeout(function(){
+	        BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
+	        BOOMR.page_ready();
+	      }, t);
         }
         
         if(impl.page_regex !== ""){
         	//filter page . to be continued
+        var regex = new RegExp(impl.page_regex);
+        // use d.URL instead of location.href because of a safari bug
+	    var url = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
+        if(!url.match(regex)){ return;}
+        
         }
         
 		if(config.log !== undefined) {

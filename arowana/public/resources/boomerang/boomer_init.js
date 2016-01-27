@@ -3,5 +3,6 @@ BOOMR.init({
     autorun: false,
     timeout: 10000,
     beacon_switch: true
+    // page_regex: "aa"
 });
 
