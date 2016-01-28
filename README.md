@@ -66,7 +66,7 @@ BOOMR.page_ready();
 * **t_page**: Time taken from the head of the page to page_ready.
 * **t_other**: Comma separated list of additional timers set by page developer. Each timer is of the format name|value
 * **_**: Hash String for security reason
-
+* **timeout**: Timed out flag to indicate if really a timed out or missing probe
 
 ### TODOs
 * Flag or Regex config for specific page
