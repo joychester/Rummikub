@@ -7,7 +7,7 @@ RUM solutions POC, using [Custom metrics]/Boomerang/BoomCatch/ServiceWorker. Dem
 Real User Monitoring ([RUM]) is a passive monitoring technology that records all user interaction with a website or client interacting with a server or cloud-based application. The real user performance data like user-perceived page load time becomes more important because of the rapid growth of SPA. The traditional onload event provided by browsers no longer make sense in such application.
 
 ### Workflow
-   ![Workflow](workflow.png)
+   ![Workflow](rum_workflow.png)
    
 ### Installation
 
