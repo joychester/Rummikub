@@ -1,8 +1,7 @@
 BOOMR.init({
     beacon_url: "/rest/beacon",
     autorun: false,
-    timeout: 10000,
-    beacon_switch: true
-    // page_regex: "aa"
+    timeout: 15000,
+    beacon_switch: "on",
+    page_regex: ""
 });
-
