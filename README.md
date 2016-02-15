@@ -2,16 +2,16 @@
 # Rummikub
 
 ### Intro
-RUM solutions POC, using [Custom metrics]/Boomerang/BoomCatch/ServiceWorker. Demo site built with ruby sinatra frame work and AngularJS. 
+RUM solutions POC, using [Custom metrics]/Boomerang/BoomCatch/ServiceWorker. Demo site built with ruby sinatra frame work and AngularJS.
 
 Real User Monitoring ([RUM]) is a passive monitoring technology that records all user interaction with a website or client interacting with a server or cloud-based application. The real user performance data like user-perceived page load time becomes more important because of the rapid growth of SPA. The traditional onload event provided by browsers no longer make sense in such application.
 
 ### Workflow
    ![Workflow](rum_workflow.png)
-   
+
 ### Installation
 
-*  **Step 1: clone boomerang project from github:** 
+*  **Step 1: clone boomerang project from github:**
 
 ```
  > * ~/workspace (master) $ git clone https://github.com/lognormal/boomerang.git  
@@ -25,12 +25,13 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
     BOOMR.init({
         beacon_url: "/rest/beacon",
         autorun: false, <!-- If you set autorun to false, this will not happen and you will need to call BOOMR.page_ready() yourself.-->
-        timeout: 10000, 
-        beacon_switch: true <!-- Turn on or off beacon-->
+        timeout: 15000,
+        beacon_switch: "on", <!-- Turn on or off beacon-->
+        page_filter: "" <!-- Define Regex to filter certain URLs-->
     });
 ```
 *  **Step 4: Combine & minify all related script file:**
-    
+
     We use [uglifyJS2] to compress annd minify our boomerang related js script.
 ```
   > * ~/workspace/boomerang (master) $ npm install uglify-js -g  
@@ -43,7 +44,7 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 %script{:src => "/resources/boomerang/boomerang-<version>.js", :type => "text/javascript", :async => "async"}
 ```
 *  **Step 6: instrument js code in a critical ajax call's success callback function:**
-    
+
 ```
 BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
 BOOMR.page_ready();
@@ -53,12 +54,12 @@ BOOMR.page_ready();
 
 
 ### Boomrang Change
-* Add a sendData() function without checking plugins' state 
+* Add a sendData() function without checking plugins' state
 * Remove listening to the "page_ready" event in RT plugin to avoid sending a request when page unload particular happened in Chrome
 * Add a variable filters with whitelist to remove variables we don't need.
 * Add a beacon_switch parameter to turn on/off send beacon
-* Add a timeout mechanism 
-* Add a security machanism with adding a encoded string in beacon request.
+* Add a timeout mechanism
+* Add a security mechanism with adding a encoded string in beacon request.
 
 ### Beacon Parameter
 * **u**:  The URL of the page that sends the beacon.
