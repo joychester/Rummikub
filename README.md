@@ -75,17 +75,17 @@ BOOMR.page_ready();
 * When ajaxcall enter error callback function, better not to send timeout beacon.
 * Data analysis
 
-### Regex Sample:
-* Sample_1: http://www.domainname.com/
+### Regex Sample:  
+* Sample_1: http://www.domainname.com/  
 Regex: /(^(http(s)?(:\/\/))?(www\.)?)(domainname.(com|co.uk|de|fr))([\/]?)$/gi
 
-* Sample_2: http://www.domainname.com/abc-bcd-2016/event/999000/
+* Sample_2: http://www.domainname.com/abc-bcd-2016/event/999000/  
 Regex:/(^(http(s)?(:\/\/))?(www\.)?)(domainname.(com|co.uk|de|fr))([\/]?)([-a-zA-Z0-9]*)(\/event\/[0-9]{6,}[\/]?)$/gi
 
-* Sample_3: http://www.domainname.com/abc-bcd-2016/event/999000/?id=11838186865&cb=1
+* Sample_3: http://www.domainname.com/abc-bcd-2016/event/999000/?id=11838186865&cb=1  
 Regex: /(^(http(s)?(:\/\/))?(www\.)?)(domainname.(com|co.uk|de|fr))([\/]?)([-a-zA-Z0-9]*)(\/event\/[0-9]{6,}[\/]?)([-a-zA-Z0-9:%_\+.~#?&//=]*)$/gi
 
-* Sample_4: All Match
+* Sample_4: All Match  
 Regex: /(^(http(s)?(:\/\/))?(www\.)?)(domainname.(com|co.uk|de|fr))([-a-zA-Z0-9:%_\+.~#?&//=]*)/gi
 
    [Boomerang.js]: https://github.com/lognormal/boomerang/blob/master/boomerang.js

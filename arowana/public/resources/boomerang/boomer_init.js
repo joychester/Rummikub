@@ -4,5 +4,5 @@ BOOMR.init({
     timeout: 15000,
     beacon_switch: "on",
     page_regex: "",
-    RT: {} //optional
+    RT: {} //optional plugin config
 });
