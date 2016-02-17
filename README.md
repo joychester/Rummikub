@@ -7,7 +7,17 @@ RUM solutions POC, using [Custom metrics]/Boomerang/BoomCatch/ServiceWorker. Dem
 Real User Monitoring ([RUM]) is a passive monitoring technology that records all user interaction with a website or client interacting with a server or cloud-based application. The real user performance data like user-perceived page load time becomes more important because of the rapid growth of SPA. The traditional onload event provided by browsers no longer make sense in such application.
 
 ### Workflow
-   ![Workflow](rum_workflow.png)
+   ![Workflow](rum_workflow.png)  
+
+### Key Steps
+1. Init BOOMR: Set Properties in Config -> check beacon_Switch -> check Browser compatibility -> page filter -> Set timeout for beacon
+2. Init Plugin: Subscribe event by binding event name to handler
+3. Instrument code:
+    Add BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
+    Call BOOMR.page_ready() to fire "page_ready" event
+4. Trigger RT.done(): add timer to beacon -> Add Vars -> impl.complete=true -> BOOMR.sendBeacon()
+5. BOOMR.sendBeacon(): Check all enabled plugins status ->  fire before_beacon() event to Add timers -> Add security var -> remove unwanted Vars -> fire onbeacon() event -> BOOMR.util.sendData()
+6. disableTimeOut() in page_ready() method
 
 ### Installation
 
