@@ -7,8 +7,10 @@
         :javascript
             //The inline script mark reflects the render time when the image downloads quickly 
             //but blocking resources prevent it from being rendered.
-            performance.mark("hero img loaded");
-            performance.measure("PageLoadTime", "stylesheets done blocking", "hero img loaded");
+            if(performance in window && performance.mark && performance.measure){
+                performance.mark("hero img loaded");
+                performance.measure("PageLoadTime", "stylesheets done blocking", "hero img loaded");
+            }
         .front-card
             .front-welcome
                 .front-welcome-text.welcome 
@@ -59,4 +61,5 @@
     });
 
 :javascript
-    performance.mark("login js loaded");  
+    if(performance in window && performance.mark)
+       performance.mark("login js loaded");  
