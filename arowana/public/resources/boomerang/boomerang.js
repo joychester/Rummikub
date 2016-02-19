@@ -306,7 +306,6 @@ impl = {
 			try {
 				handler = handlers[i];
 				handler.fn.call(handler.scope, data, handler.cb_data);
-				// BOOMR.warn(e_name + " fired :"+handler.scope+"."+handler.fn+" is called!");
 			}
 			catch(err) {
 				BOOMR.addError(err, "fireEvent." + e_name + "<" + i + ">");
@@ -742,7 +741,7 @@ boomr = {
 				// use d.URL instead of location.href because of a safari bug
 				var url = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
 				if (!url.match(regex)){
-					BOOMR.debug(url+ " This URL isn't match, check your page_filter patterns: " +impl.page_filter);
+					BOOMR.debug(url + " This URL isn't match, check your page_filter patterns: " + impl.page_filter);
 					return;
 				}else{
 					BOOMR.debug(url + " This URL is matched!");
@@ -752,8 +751,8 @@ boomr = {
 			//set timeout to beacon
 			var t = impl.timeout;
 			impl.timeoutID = w.setTimeout(function(){
-				BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
-				BOOMR.addVar("timeout","true");
+				BOOMR.addVar("user_timing", window.performance.now().toFixed(1));
+				BOOMR.addVar("timeout", "true");
 				BOOMR.page_ready();
 			}, t);
 		} else {
@@ -809,7 +808,7 @@ boomr = {
 		if(impl.handlers_attached) {
 			return this;
 		}
-   
+
 		// The developer can override onload by setting autorun to false
 		if(!impl.onloadfired && (config.autorun === undefined || config.autorun !== false)) {
 			if(d.readyState && d.readyState === "complete") {
@@ -869,7 +868,7 @@ boomr = {
 		}
 		impl.fireEvent("page_ready", ev);
 		impl.onloadfired = true;
-		BOOMR.disableTimeOut(); //clear time out
+		BOOMR.disableTimeOut();
 		return this;
 	},
 
@@ -1127,8 +1126,8 @@ boomr = {
 		// If we reach here, all plugins have completed
 		impl.fireEvent("before_beacon", impl.vars);
 
-		//parameter for security
-		var hashString = BOOMR.utils.encodeString(window.performance.timing.navigationStart+"_"+impl.vars["user_timing"]+"_"+Date.now());
+		//Add Var for security
+		var hashString = BOOMR.utils.encodeString(window.performance.timing.navigationStart + "_" + impl.vars["user_timing"] + "_" + Date.now());
 		BOOMR.addVar("_",hashString);
 
 		// Don't send a beacon if no beacon_url has been set
@@ -1157,10 +1156,11 @@ boomr = {
 			return this;
 		}
 
-		BOOMR.debug("Really Ready to fire beacon:" + window.performance.now());
 		// using 2000 here as a de facto maximum URL length based on:
 		// http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
 		BOOMR.utils.sendData(form, impl.beacon_type === "AUTO" ? (length > 2000 ? "POST" : "GET") : "POST");
+
+		BOOMR.debug("Beacon sent on :" + Date.now());
 
 		BOOMR.clearVars();
 
