@@ -60,30 +60,15 @@ BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
 BOOMR.page_ready();
 ```
 *  **Step 7: send beacon to Extrahop:**
-*  **Step 8: Extrahop data process:**
+*  **Step 8: Extrahop data process:**  
 
-
-### Boomrang Change
-* Add a sendData() function without checking plugins' state
-* Remove listening to the "page_ready" event in RT plugin to avoid sending a request when page unload particular happened in Chrome
-* Add a variable filters with whitelist to remove variables we don't need.
-* Add a beacon_switch parameter to turn on/off send beacon
-* Add a timeout mechanism
-* Add a security mechanism with adding a encoded string in beacon request.
-
-### Beacon Parameter
+### Beacon Parameters
 * **u**:  The URL of the page that sends the beacon.
 * **t_done**: Perceived load time of the page.
 * **t_page**: Time taken from the head of the page to page_ready.
 * **t_other**: Comma separated list of additional timers set by page developer. Each timer is of the format name|value
 * **_**: Hash String for security reason
-* **timeout**: Timed out flag to indicate if really a timed out or missing probe
-
-### TODOs
-* Flag or Regex config for specific page
-* No ajax call included, better not to send timeout beacon
-* When ajaxcall enter error callback function, better not to send timeout beacon.
-* Data analysis
+* **timeout**: Timed out flag to indicate if really a timed out or missing probe  
 
 ### Regex Sample:  
 * Sample_1: http://www.domainname.com/  
