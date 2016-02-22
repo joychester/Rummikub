@@ -28,7 +28,7 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 ```
 *  **Step 2: customize boomerang.js:**
 
-    Detailed boomerang change see below.
+    Diff original boomerang.js with ours to see the difference
 *  **Step 3: create a boomer_init.js file:**
 
 ```
