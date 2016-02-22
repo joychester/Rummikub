@@ -741,7 +741,7 @@ boomr = {
 				// use d.URL instead of location.href because of a safari bug
 				var url = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
 				if (!url.match(regex)){
-					BOOMR.info(url + " This URL isn't match, check your page_filter patterns: " + impl.page_filter);
+					BOOMR.info(url + " This URL isn't match, check your page_filter patterns!");
 					return;
 				}else{
 					BOOMR.info(url + " This URL is matched!");
