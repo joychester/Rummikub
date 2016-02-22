@@ -731,7 +731,7 @@ boomr = {
 		if(impl.beacon_switch.toLowerCase() === "on"){
 			//check browser compatibility for Resource Timing and User Timing API
 			if(!(("performance" in window)&&("timing" in window.performance)&&("getEntriesByType" in window.performance)&&("mark" in window.performance))){
-				BOOMR.debug("Browser compatibility check failed!");
+				BOOMR.info("Browser compatibility check failed!");
 				return;
 			}
 
@@ -741,10 +741,10 @@ boomr = {
 				// use d.URL instead of location.href because of a safari bug
 				var url = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
 				if (!url.match(regex)){
-					BOOMR.debug(url + " This URL isn't match, check your page_filter patterns: " + impl.page_filter);
+					BOOMR.info(url + " This URL isn't match, check your page_filter patterns: " + impl.page_filter);
 					return;
 				}else{
-					BOOMR.debug(url + " This URL is matched!");
+					BOOMR.info(url + " This URL is matched!");
 				}
 			}
 
@@ -756,7 +756,7 @@ boomr = {
 				BOOMR.page_ready();
 			}, t);
 		} else {
-			BOOMR.debug("RUM feature not enabled!");
+			BOOMR.info("RUM feature not enabled!");
 			return;
 		}
 
@@ -875,7 +875,7 @@ boomr = {
 	disableTimeOut: function(){
 		if(typeof impl.timeoutID !== "undefined"){
 			w.clearTimeout(impl.timeoutID);
-			BOOMR.debug("TimeoutID Cleared.");
+			BOOMR.info("TimeoutID Cleared.");
 		}
 	},
 
@@ -1160,7 +1160,7 @@ boomr = {
 		// http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
 		BOOMR.utils.sendData(form, impl.beacon_type === "AUTO" ? (length > 2000 ? "POST" : "GET") : "POST");
 
-		BOOMR.debug("Beacon sent on :" + Date.now());
+		BOOMR.info("Beacon sent on :" + Date.now());
 
 		BOOMR.clearVars();
 
