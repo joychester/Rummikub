@@ -3,6 +3,6 @@ BOOMR.init({
     autorun: false,
     timeout: 15000,
     beacon_switch: "ON", //ignore case
-    page_filter: "(^(http(s)?(:\/\/))?(www.)?)(rummikub-fredxue.(com|co.uk|de|fr|c9users.io))([\/]?)",
+    page_filter: "(^(http(s)?(:\/\/))?(www.)?)(slcd000ldr003.(com|co.uk|de|fr|c9users.io|stubcorp.com))([\/]?)",
     RT: {} //optional plugin config
 });
