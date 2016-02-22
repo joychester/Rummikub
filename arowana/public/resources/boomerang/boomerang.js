@@ -755,6 +755,7 @@ boomr = {
 				BOOMR.addVar("timeout", "true");
 				BOOMR.page_ready();
 			}, t);
+			BOOMR.info("Timeout ID Set: " + impl.timeoutID);
 		} else {
 			BOOMR.info("RUM feature not enabled!");
 			return;
@@ -875,7 +876,7 @@ boomr = {
 	disableTimeOut: function(){
 		if(typeof impl.timeoutID !== "undefined"){
 			w.clearTimeout(impl.timeoutID);
-			BOOMR.info("TimeoutID Cleared.");
+			BOOMR.info("Timeout ID Cleared: " + impl.timeoutID);
 		}
 	},
 
