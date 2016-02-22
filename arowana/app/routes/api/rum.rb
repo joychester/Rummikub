@@ -27,11 +27,11 @@ module Arowana
                     #Connect to boomcatch server: boomcatch --port 8888 --host 127.0.0.1
                     #Boomcatch server interprets a request URL 
                     #converts the data into the StatsD metric format to pass along to DogstatsD
-                    bc_service = `lsof -i:8888`
-                    if !bc_service.empty?
-                        uri = URI('http://127.0.0.1:8888/beacon')
-                        uri.query = URI.encode_www_form(params)
-                        Net::HTTP.get_response(uri)
+                    #bc_service = `lsof -i:8888`
+                    #if !bc_service.empty?
+                    #    uri = URI('http://127.0.0.1:8888/beacon')
+                    #    uri.query = URI.encode_www_form(params)
+                    #    Net::HTTP.get_response(uri)
                     end
                 end
                     
