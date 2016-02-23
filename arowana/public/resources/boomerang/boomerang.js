@@ -869,16 +869,9 @@ boomr = {
 		if(impl.onloadfired) {
 			return this;
 		}
-		//set beacon delay
-		var t = impl.beacon_delay;
-		if(t>0 && impl.vars["timeout"] !== "true"){
-			impl.beaconDelayID = w.setTimeout(function(){
-			impl.fireEvent("page_ready", ev);
-			}, t);
-			boomr.info("Beacon delay timeoutID Set:"+ impl.beaconDelayID )
-		}else{
-				impl.fireEvent("page_ready", ev);
-		}
+
+		impl.fireEvent("page_ready", ev);
+		
 		impl.onloadfired = true;
 		BOOMR.disableTimeOut();
 		return this;
@@ -1167,12 +1160,21 @@ boomr = {
 			// do not make the request if there is no data
 			return this;
 		}
-
-		// using 2000 here as a de facto maximum URL length based on:
-		// http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
-		BOOMR.utils.sendData(form, impl.beacon_type === "AUTO" ? (length > 2000 ? "POST" : "GET") : "POST");
-
-		BOOMR.info("Beacon sent on :" + Date.now());
+        //set beacon delay
+		var t = impl.beacon_delay;
+		if(t>0 && impl.vars["timeout"] !== "true"){
+			impl.beaconDelayID = w.setTimeout(function(){
+	        BOOMR.utils.sendData(form, impl.beacon_type === "AUTO" ? (length > 2000 ? "POST" : "GET") : "POST");
+	        BOOMR.info("Beacon sent on :" + Date.now());
+			}, t);
+			boomr.info("Beacon delay timeoutID Set:"+ impl.beaconDelayID )
+		}else{
+		 	// using 2000 here as a de facto maximum URL length based on:
+			// http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+			BOOMR.utils.sendData(form, impl.beacon_type === "AUTO" ? (length > 2000 ? "POST" : "GET") : "POST");
+			BOOMR.info("Beacon sent on :" + Date.now());
+		}
+		
 
 		BOOMR.clearVars();
 
