@@ -238,6 +238,8 @@ impl = {
 
 	//adding custom properties
 	timeout: 15000,
+	
+	beacon_delay: 0,
 
 	beacon_switch: "on",
 
@@ -714,7 +716,7 @@ boomr = {
 
 	init: function(config) {
 		var i, k,
-		    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons", "timeout", "beacon_switch", "page_filter"];
+		    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons", "timeout", "beacon_switch", "page_filter","beacon_delay"];
 
 		BOOMR_check_doc_domain();
 
@@ -867,7 +869,16 @@ boomr = {
 		if(impl.onloadfired) {
 			return this;
 		}
-		impl.fireEvent("page_ready", ev);
+		//set beacon delay
+		var t = impl.beacon_delay;
+		if(t>0 && impl.vars["timeout"] !== "true"){
+			impl.beaconDelayID = w.setTimeout(function(){
+			impl.fireEvent("page_ready", ev);
+			}, t);
+			boomr.info("Beacon delay timeoutID Set:"+ impl.beaconDelayID )
+		}else{
+				impl.fireEvent("page_ready", ev);
+		}
 		impl.onloadfired = true;
 		BOOMR.disableTimeOut();
 		return this;
