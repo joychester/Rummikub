@@ -236,9 +236,9 @@ impl = {
 
 	handlers_attached: false,
 
-	//adding custom properties
+	//adding custom properties with default value
 	timeout: 15000,
-	
+
 	beacon_delay: 0,
 
 	beacon_switch: "on",
@@ -871,7 +871,7 @@ boomr = {
 		}
 
 		impl.fireEvent("page_ready", ev);
-		
+
 		impl.onloadfired = true;
 		BOOMR.disableTimeOut();
 		return this;
@@ -1160,7 +1160,8 @@ boomr = {
 			// do not make the request if there is no data
 			return this;
 		}
-        //set beacon delay
+
+		//delay sending beacon
 		var t = impl.beacon_delay;
 		if(t>0 && impl.vars["timeout"] !== "true"){
 			impl.beaconDelayID = w.setTimeout(function(){
@@ -1174,7 +1175,7 @@ boomr = {
 			BOOMR.utils.sendData(form, impl.beacon_type === "AUTO" ? (length > 2000 ? "POST" : "GET") : "POST");
 			BOOMR.info("Beacon sent on :" + Date.now());
 		}
-		
+
 
 		BOOMR.clearVars();
 

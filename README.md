@@ -16,7 +16,7 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
     Add BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
     Call BOOMR.page_ready() to fire "page_ready" event
 4. Trigger RT.done(): add timer to beacon -> Add Vars -> impl.complete=true -> BOOMR.sendBeacon()
-5. BOOMR.sendBeacon(): Check all enabled plugins status ->  fire before_beacon() event to Add timers -> Add security var -> remove unwanted Vars -> fire onbeacon() event -> BOOMR.util.sendData()
+5. BOOMR.sendBeacon(): Check all enabled plugins status ->  fire before_beacon() event to Add timers -> Add security var -> remove unwanted Vars -> fire onbeacon() event -> delay BOOMR.util.sendData() if beacon_delay > 0 -> Clear vars
 6. disableTimeOut() in page_ready() method
 
 ### Installation
@@ -36,6 +36,7 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
         beacon_url: "/rest/beacon",
         autorun: false, <!-- If you set autorun to false, this will not happen and you will need to call BOOMR.page_ready() yourself.-->
         timeout: 15000,
+        beacon_delay: 0, // in ms
         beacon_switch: "on", <!-- Turn on or off beacon-->
         page_filter: "" <!-- Define Regex to filter certain URLs-->
     });
@@ -64,8 +65,10 @@ BOOMR.page_ready();
 
 ### Beacon Parameters
 * **u**:  The URL of the page that sends the beacon.
-* **t_done**: Perceived load time of the page.
-* **t_page**: Time taken from the head of the page to page_ready.
+* **user_timing**:  The timing instrumented in your page indicate real user experience.
+* **t_resp**: Time to First Byte.
+* **t_done**: The same as user_timing, Perceived load time of the page.
+* **t_page**: t_page = t_done - t_resp.  
 * **t_other**: Comma separated list of additional timers set by page developer. Each timer is of the format name|value
 * **_**: Hash String for security reason
 * **timeout**: Timed out flag to indicate if really a timed out or missing probe  
