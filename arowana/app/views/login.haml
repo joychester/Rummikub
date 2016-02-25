@@ -1,6 +1,6 @@
 .front-container#front-container
     //inspiration: https://speedcurve.com/blog/user-timing-and-custom-metrics/
-    %div{:id => "ctrl","ng-controller": "RUMController as rumCtrl"}
+    %div
         .front-bg
             //The image onload mark reflects the render time when the image download takes longer than any blocking resources.
             %img.front-image{:src => "/resources/content_static/image/front_bg.jpg", 'my-click':"changeNumber()", :onload => "performance.mark('hero img onload');"}

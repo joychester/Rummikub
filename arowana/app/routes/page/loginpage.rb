@@ -8,8 +8,10 @@ module Arowana
             end
             
             post '/login' do
+                # For test
                 session[:loginuser] = "test"
                 return "allowed";
+                # <
                 input_uname = params[:username]
                 input_pwd = params[:passwd]
                 
