@@ -1144,10 +1144,10 @@ boomr = {
 			return true;
 		}
 
-		//remove vars not defined in whitelist
-		var varWhiteList =["timeout","user_timing","t_resp","t_page","t_done","t_other","u","_"];
+		//remove vars defined in blacklist
+		var varBlackList =["rt.start","rt.tstart","rt.bstart","rt.end","r","vis.st","vis.lh"];
 		for(name in impl.vars){
-			if(varWhiteList.indexOf(name) === -1)  delete impl.vars[ name ];
+			if(varBlackList.indexOf(name) !== -1)  delete impl.vars[ name ];
 		}
 
 		form = document.createElement("form");

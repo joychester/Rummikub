@@ -7,10 +7,11 @@
         :javascript
             //The inline script mark reflects the render time when the image downloads quickly 
             //but blocking resources prevent it from being rendered.
-            if(performance in window && performance.mark && performance.measure){
+            if(performance.mark && performance.measure){
                 performance.mark("hero img loaded");
                 performance.measure("PageLoadTime", "stylesheets done blocking", "hero img loaded");
             }
+            BOOMR.addVar("t_heroimg",window.performance.getEntriesByName("hero img loaded")[0].startTime.toFixed(1));
         .front-card
             .front-welcome
                 .front-welcome-text.welcome 
