@@ -856,25 +856,6 @@ BOOMR.plugins.RT = {
 		return this;
 	},
 	
-	sendMyData: function(name,value){
-		impl.complete = false;
-		
-		// make sure old variables don't stick around
-		BOOMR.removeVar(
-			"t_done", "t_page", "t_resp", "t_postrender", "t_prerender", "t_load", "t_other",
-			"r", "r2", "rt.tstart", "rt.cstart", "rt.bstart", "rt.end", "rt.subres", "rt.abld",
-			"http.errno", "http.method", "xhr.sync"
-		);
-		
-		BOOMR.addVar(name,value);
-		impl.addedVars.push(name);
-		
-		impl.complete = true;
-		
-		BOOMR.sendBeacon();
-		
-		return this;
-	},
 
 	is_complete: function() { return impl.complete; }
 

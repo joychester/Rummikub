@@ -244,6 +244,8 @@ impl = {
 	beacon_switch: "on",
 
 	page_filter: "",
+	
+	blacklist: [],
 
 	events: {
 		"page_ready": [],
@@ -716,7 +718,7 @@ boomr = {
 
 	init: function(config) {
 		var i, k,
-		    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons", "timeout", "beacon_switch", "page_filter","beacon_delay"];
+		    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons", "timeout", "beacon_switch", "blacklist", "page_filter","beacon_delay"];
 
 		BOOMR_check_doc_domain();
 
