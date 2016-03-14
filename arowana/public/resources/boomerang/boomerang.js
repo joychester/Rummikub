@@ -243,7 +243,7 @@ impl = {
 
 	beacon_switch: "on",
 
-	page_filter: "",
+	url_pattern: [],
 	
 	blacklist: [],
 
@@ -718,7 +718,7 @@ boomr = {
 
 	init: function(config) {
 		var i, k,
-		    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons", "timeout", "beacon_switch", "blacklist", "page_filter","beacon_delay"];
+		    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons", "timeout", "beacon_switch", "blacklist", "url_pattern","beacon_delay"];
 
 		BOOMR_check_doc_domain();
 
@@ -740,18 +740,42 @@ boomr = {
 			}
 
 			// Page filter, TBD
-			if(impl.page_filter !== ""){
-				var regex = new RegExp(impl.page_filter,"gi");
-				// use d.URL instead of location.href because of a safari bug
-				var url = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
-				if (!url.match(regex)){
-					BOOMR.info(url + " This URL isn't match, check your page_filter patterns!");
-					return;
+			// if(impl.page_filter !== ""){
+			// 	var regex = new RegExp(impl.page_filter,"gi");
+			// 	// use d.URL instead of location.href because of a safari bug
+			// 	var url = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
+			// 	if (!url.match(regex)){
+			// 		BOOMR.info(url + " This URL isn't match, check your page_filter patterns!");
+			// 		return;
+			// 	}else{
+			// 		BOOMR.info(url + " This URL is matched!");
+			// 	}
+			// }
+			
+
+			var isMatched = false;
+			var url = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
+			for(var i in impl.url_pattern){
+				var filter = impl.url_pattern[i];
+				if(filter === "ALL") {
+					isMatched = true;
+					BOOMR.info("url_pattern has been set to match all url");
+					break;
 				}else{
-					BOOMR.info(url + " This URL is matched!");
+					var regex = new RegExp(filter,"gi");
+					// use d.URL instead of location.href because of a safari bug
+				    if(url.match(regex)){
+				    	isMatched = true;
+				    	break;
+				    }
 				}
 			}
-
+			
+			if (!isMatched){
+					BOOMR.info(url + " This URL isn't match, check your page_filter patterns!");
+					return;
+			}else  BOOMR.info(url + " This URL is matched!");
+				
 			//set timeout to beacon
 			var t = impl.timeout;
 			impl.timeoutID = w.setTimeout(function(){
@@ -1146,10 +1170,9 @@ boomr = {
 			return true;
 		}
 
-		//remove vars defined in blacklist
-		var varBlackList =["rt.start","rt.tstart","rt.bstart","rt.end","r","vis.st","vis.lh"];
+		//remove vars defined in blacklist;
 		for(name in impl.vars){
-			if(varBlackList.indexOf(name) !== -1)  delete impl.vars[ name ];
+			if(impl.blacklist.indexOf(name) !== -1)  delete impl.vars[ name ];
 		}
 
 		form = document.createElement("form");

@@ -7,7 +7,7 @@
         %link{:href => "/resources/content_static/css/style.css", :rel => "stylesheet", :type => "text/css"}
         :javascript
             //performance.clearmark("stylesheets done blocking");
-            if( performance.mark){
+            if("performance" in window && performance.mark){
                 performance.mark("stylesheets done blocking");
             }
 
@@ -33,7 +33,7 @@
         //     };
         :javascript
             //performance.clearmark("commonJS done blocking");
-            if(performance.mark){
+            if("performance" in window && performance.mark){
                performance.mark("commonJS done blocking");
             }
             BOOMR.addVar("t_css", window.performance.getEntriesByName("stylesheets done blocking")[0].startTime.toFixed(1));

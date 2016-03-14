@@ -8,6 +8,8 @@ BOOMR.init({
                 "rt.start","rt.tstart","rt.bstart","rt.end","r","vis.st","vis.lh" //rt plugin 
                 //other plugins
                 ], 
-    page_filter: "(^(http(s)?(:\/\/))?(www.)?)(rummikub-fredxue.(com|co.uk|de|fr|c9users.io))([\/]?)",
+    //Here we define a group of patterns, If one of them matched then the url will not be filtered.
+    //The keyword "ALL" means all url will NOT be filtered!!!
+    url_pattern: ["sdfasdfsdfs","(^(http(s)?(:\/\/))?(www.)?)(rummikub-fredxue.(com|co.uk|de|fr|c9users.io))([\/]?)","ALL"], 
     RT: {} //optional plugin config
 });
