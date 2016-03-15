@@ -6,7 +6,6 @@
         %link{:href => "/resources/bootstrap/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}
         %link{:href => "/resources/content_static/css/style.css", :rel => "stylesheet", :type => "text/css"}
         :javascript
-            //performance.clearmark("stylesheets done blocking");
             if("performance" in window && performance.mark){
                 performance.mark("stylesheets done blocking");
             }
@@ -32,12 +31,11 @@
         //             });
         //     };
         :javascript
-            //performance.clearmark("commonJS done blocking");
-            if("performance" in window && performance.mark){
+            if("performance" in window && performance.mark && performance.getEntriesByName && performance.now){
                performance.mark("commonJS done blocking");
+               BOOMR.addVar("t_css", window.performance.getEntriesByName("stylesheets done blocking")[0].startTime.toFixed(1));
+               BOOMR.addVar("t_js", window.performance.now().toFixed(1));
             }
-            BOOMR.addVar("t_css", window.performance.getEntriesByName("stylesheets done blocking")[0].startTime.toFixed(1));
-            BOOMR.addVar("t_js", window.performance.now().toFixed(1));
     %body{:onload => "loadData()",:id => "ctrl","ng-controller": "RUMController as rumCtrl"}
         .topbar
             .container

@@ -3,15 +3,15 @@
     %div
         .front-bg
             //The image onload mark reflects the render time when the image download takes longer than any blocking resources.
-            %img.front-image{:src => "/resources/content_static/image/front_bg.jpg", 'my-click':"changeNumber()", :onload => "performance.mark('hero img onload');"}
+            %img.front-image{:src => "/resources/content_static/image/front_bg.jpg", 'my-click':"changeNumber()", :onload => "if('performance' in window && performance.mark) performance.mark('hero img onload');"}
         :javascript
             //The inline script mark reflects the render time when the image downloads quickly 
             //but blocking resources prevent it from being rendered.
-            if(performance.mark && performance.measure){
+            if("performance" in window && performance.mark && performance.measure &&　performance.getEntriesByName){
                 performance.mark("hero img loaded");
                 performance.measure("PageLoadTime", "stylesheets done blocking", "hero img loaded");
+                BOOMR.addVar("t_heroimg",window.performance.getEntriesByName("hero img loaded")[0].startTime.toFixed(1));
             }
-            BOOMR.addVar("t_heroimg",window.performance.getEntriesByName("hero img loaded")[0].startTime.toFixed(1));
         .front-card
             .front-welcome
                 .front-welcome-text.welcome 
@@ -62,5 +62,4 @@
     });
 
 :javascript
-    if(performance in window && performance.mark)
-       performance.mark("login js loaded");  
+    if("performance" in window && performance.mark)  performance.mark("login js loaded");  

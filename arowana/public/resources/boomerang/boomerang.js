@@ -243,7 +243,7 @@ impl = {
 
 	beacon_switch: "on",
 
-	url_pattern: [],
+	url_pattern: "ALL",
 	
 	blacklist: [],
 
@@ -734,60 +734,54 @@ boomr = {
 
 		if(impl.beacon_switch.toLowerCase() === "on"){
 			//check browser compatibility for Resource Timing and User Timing API
-			if(!(("performance" in window)&&("timing" in window.performance)&&("getEntriesByType" in window.performance)&&("mark" in window.performance))){
+			// if(!(("performance" in window)&&("timing" in window.performance)&&("getEntriesByType" in window.performance)&&("mark" in window.performance))){
+			// 	BOOMR.info("Browser compatibility check failed!");
+			// 	return;
+			// }
+            if(!(("performance" in window)&&("timing" in window.performance))){
 				BOOMR.info("Browser compatibility check failed!");
 				return;
 			}
-
-			// Page filter, TBD
-			// if(impl.page_filter !== ""){
-			// 	var regex = new RegExp(impl.page_filter,"gi");
-			// 	// use d.URL instead of location.href because of a safari bug
-			// 	var url = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
-			// 	if (!url.match(regex)){
-			// 		BOOMR.info(url + " This URL isn't match, check your page_filter patterns!");
-			// 		return;
-			// 	}else{
-			// 		BOOMR.info(url + " This URL is matched!");
-			// 	}
-			// }
-			
-
 			var isMatched = false;
 			var url = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
-			for(var i in impl.url_pattern){
-				var filter = impl.url_pattern[i];
-				if(filter === "ALL") {
-					isMatched = true;
-					BOOMR.info("url_pattern has been set to match all url");
-					break;
-				}else{
+			
+			if(typeof impl.url_pattern !== "string"){
+				for(var i in impl.url_pattern){
+					var filter = impl.url_pattern[i];
+					if(filter === "")  continue;
+					
 					var regex = new RegExp(filter,"gi");
-					// use d.URL instead of location.href because of a safari bug
 				    if(url.match(regex)){
 				    	isMatched = true;
 				    	break;
 				    }
 				}
+			  }else{
+			    if(impl.url_pattern.toUpperCase() === "ALL") {
+			    	BOOMR.info("url_pattern has been set to match all url");
+			    	isMatched = true;
+			    }
+		      }
+		      
+			  if (!isMatched){
+				BOOMR.info(url + " This URL isn't match, check your url_pattern!");
+				return;
+			  }else{
+			    BOOMR.info(url + " This URL is matched!");
+		      }  
+			}else{
+				BOOMR.info("RUM feature not enabled!");
+				return;
 			}
 			
-			if (!isMatched){
-					BOOMR.info(url + " This URL isn't match, check your page_filter patterns!");
-					return;
-			}else  BOOMR.info(url + " This URL is matched!");
-				
-			//set timeout to beacon
-			var t = impl.timeout;
-			impl.timeoutID = w.setTimeout(function(){
-				BOOMR.addVar("user_timing", window.performance.now().toFixed(1));
-				BOOMR.addVar("timeout", "true");
-				BOOMR.page_ready();
-			}, t);
-			BOOMR.info("Timeout ID Set: " + impl.timeoutID);
-		} else {
-			BOOMR.info("RUM feature not enabled!");
-			return;
-		}
+		//set timeout to beacon
+		var t = impl.timeout;
+		impl.timeoutID = w.setTimeout(function(){
+			BOOMR.addVar("user_timing", window.performance.now().toFixed(1));
+			BOOMR.addVar("timeout", "true");
+			BOOMR.page_ready();
+		}, t);
+		BOOMR.info("Timeout ID Set: " + impl.timeoutID);
 
 		if(config.log !== undefined) {
 			this.log = config.log;

@@ -10,6 +10,6 @@ BOOMR.init({
                 ], 
     //Here we define a group of patterns, If one of them matched then the url will not be filtered.
     //The keyword "ALL" means all url will NOT be filtered!!!
-    url_pattern: ["sdfasdfsdfs","(^(http(s)?(:\/\/))?(www.)?)(rummikub-fredxue.(com|co.uk|de|fr|c9users.io))([\/]?)","ALL"], 
+    url_pattern: "all", 
     RT: {} //optional plugin config
 });

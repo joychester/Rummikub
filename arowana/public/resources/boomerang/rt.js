@@ -648,14 +648,14 @@ BOOMR.plugins.RT = {
 
 		impl.check_visibility();
 
-		// BOOMR.subscribe("page_ready", impl.page_ready, null, impl);
-		// BOOMR.subscribe("visibility_changed", impl.check_visibility, null, impl);
+		BOOMR.subscribe("page_ready", impl.page_ready, null, impl);
+		BOOMR.subscribe("visibility_changed", impl.check_visibility, null, impl);
 		BOOMR.subscribe("page_ready", this.done, "load", this);
 		BOOMR.subscribe("xhr_load", this.done, "xhr", this);
 		BOOMR.subscribe("dom_loaded", impl.domloaded, null, impl);
-		// BOOMR.subscribe("page_unload", impl.page_unload, null, impl);
-		// BOOMR.subscribe("click", impl.onclick, null, impl);
-		// BOOMR.subscribe("form_submit", impl.onsubmit, null, impl);
+		BOOMR.subscribe("page_unload", impl.page_unload, null, impl);
+		BOOMR.subscribe("click", impl.onclick, null, impl);
+		BOOMR.subscribe("form_submit", impl.onsubmit, null, impl);
 		BOOMR.subscribe("before_beacon", this.addTimersToBeacon, "beacon", this);
 		BOOMR.subscribe("onbeacon", impl.clear, null, impl);
 
