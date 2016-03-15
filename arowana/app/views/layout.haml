@@ -31,10 +31,12 @@
         //             });
         //     };
         :javascript
-            if("performance" in window && performance.mark && performance.getEntriesByName && performance.now){
+            if("performance" in window && performance.mark){
                performance.mark("commonJS done blocking");
-               BOOMR.addVar("t_css", window.performance.getEntriesByName("stylesheets done blocking")[0].startTime.toFixed(1));
-               BOOMR.addVar("t_js", window.performance.now().toFixed(1));
+               if(performance.getEntriesByName && performance.now){
+                   BOOMR.addVar("t_css", window.performance.getEntriesByName("stylesheets done blocking")[0].startTime.toFixed(1));
+                   BOOMR.addVar("t_js", window.performance.now().toFixed(1));
+               }
             }
     %body{:onload => "loadData()",:id => "ctrl","ng-controller": "RUMController as rumCtrl"}
         .topbar
@@ -42,6 +44,7 @@
                 %img.stubhub_logo{:src => "/resources/content_static/image/perfhublogo.png"}
             .page-title Perfhub
         =yield
+        // Test parallel downloading with XHR
         // :javascript
         //     $.get( "https://site.etsystatic.com/ac/primary/js/base.20160219210323.en-US.js", function( data ) {
         //       console.log("complete");

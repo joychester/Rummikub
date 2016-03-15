@@ -12,7 +12,6 @@ app.controller('RUMController',function($scope, $http, $q){
              };
         });
    }
-    
 });
 
 
@@ -32,12 +31,9 @@ app.directive('myClick',function(){
                 //   window.performance.measure(funcName,funcName+"Start",funcName+"End");
                 //   console.log(window.performance.getEntriesByType('measure'));
                 //   BOOMR.sendMyData(funcName,window.performance.getEntriesByName(funcName)[0].duration.toFixed(1));
-              
             });
         }
     }
-    
-
 });
 
 

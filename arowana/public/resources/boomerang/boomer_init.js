@@ -5,7 +5,8 @@ BOOMR.init({
     beacon_delay: 0, // in ms
     beacon_switch: "ON", //ignore case
     blacklist: [
-                "rt.start","rt.tstart","rt.bstart","rt.end","r","vis.st","vis.lh" //rt plugin 
+                "v",// Boomerang
+                "rt.start","rt.tstart","rt.bstart","rt.end","r","vis.st","vis.lh","r2" //rt plugin 
                 //other plugins
                 ], 
     //Here we define a group of patterns, If one of them matched then the url will not be filtered.

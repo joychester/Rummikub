@@ -733,12 +733,12 @@ boomr = {
 		}
 
 		if(impl.beacon_switch.toLowerCase() === "on"){
-			//check browser compatibility for Resource Timing and User Timing API
 			// if(!(("performance" in window)&&("timing" in window.performance)&&("getEntriesByType" in window.performance)&&("mark" in window.performance))){
 			// 	BOOMR.info("Browser compatibility check failed!");
 			// 	return;
 			// }
-            if(!(("performance" in window)&&("timing" in window.performance))){
+			//check browser compatibility for Resource Timing and User Timing API
+            if(!(("performance" in window)&&("timing" in window.performance)&&(performance.now))){
 				BOOMR.info("Browser compatibility check failed!");
 				return;
 			}
@@ -776,6 +776,10 @@ boomr = {
 			
 		//set timeout to beacon
 		var t = impl.timeout;
+		if (t < 10000) {
+			BOOMR.warn("beacon send timeout value is a little bit short...consider to increase it (15 seconds by default)! ");
+		}
+		
 		impl.timeoutID = w.setTimeout(function(){
 			BOOMR.addVar("user_timing", window.performance.now().toFixed(1));
 			BOOMR.addVar("timeout", "true");
