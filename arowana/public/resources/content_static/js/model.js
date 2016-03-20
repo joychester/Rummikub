@@ -4,14 +4,16 @@ app.controller('RUMController',function($scope, $http, $q){
    $scope.changeNumber = function(){
         $http.get('/rest/angular').then(function(response) {
              if($('#ajaxEle').length<1) {
-                 $('.welcome').append(' <p id="ajaxEle">Your Passcode Generated: '+response.data+'</p>');
-                     BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
-                     BOOMR.page_ready();
+                var mdiv=document.getElementById("message_div");
+                mdiv.innerHTML=response.data;
+                BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
+                BOOMR.page_ready();
              }else{
-                 $('#ajaxEle').text('This is a very very mad world: '+response.data);
+                 $('#ajaxEle').text('Your Passcode Generated: '+response.data);
              };
         });
    }
+
 });
 
 

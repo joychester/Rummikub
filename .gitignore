@@ -1,3 +1,3 @@
-*.log
-*.lock
+arowana/log/server.log
+arowana/Gemfile.lock
 

@@ -5,7 +5,7 @@
             //The image onload mark reflects the render time when the image download takes longer than any blocking resources.
             %img.front-image{:src => "/resources/content_static/image/front_bg.jpg", 'my-click':"changeNumber()", :onload => "if('performance' in window && performance.mark && performance.getEntriesByName){ performance.mark('hero img onload');  BOOMR.addVar('t_heroimg_onload',window.performance.getEntriesByName('hero img onload')[0].startTime.toFixed(1));}"}
         :javascript
-            //The inline script mark reflects the render time when the image downloads quickly 
+            //The inline script mark reflects the render time when the image downloads quickly
             //but blocking resources prevent it from being rendered.
             if("performance" in window && performance.mark && performance.measure){
                 performance.mark("hero img loaded");
@@ -16,10 +16,15 @@
             }
         .front-card
             .front-welcome
-                .front-welcome-text.welcome 
+                .front-welcome-text.welcome
                     %h1 Welcome to Perfhub!
                     %p Get the latest Page and API Performance and track any performance related stuff here!
-                    
+                    %br
+                    %div{:style=>"font-size:25px;"}
+                        Your Passcode Generated:
+                        #message_div{:style=>"display: inline !important;color: #f75;"}
+                            %image{:src=>"/resources/content_static/image/loading.gif",:style=>"width:60px;"}
+
             .front-signin
                 %form.signin{:role => "form"}
                     .form-group
@@ -28,6 +33,9 @@
                     .form-group
                         %label{:for => "password"}
                         %input.text-input.form-control#passwd{:type => "password", :placeholder => "Password"}
+                    .form-group
+                        %label{:for => "passcode"}
+                        %input.text-input.form-control#passwd{:type => "text", :placeholder => "Dynamic Passcode"}
                     .form-group
                         .checkbox
                             %input{:type => "checkbox", :value => "1", :checked => "checked"}
@@ -44,7 +52,7 @@
         $.ajax({
             url: '/login',
             type: 'POST',
-            data: {username: uname, passwd: pwd}, 
+            data: {username: uname, passwd: pwd},
             timeout: 10000,
             success: function(data, status, xhr) {
                 if(data=="allowed"){
@@ -64,4 +72,4 @@
     });
 
 :javascript
-    if("performance" in window && performance.mark)  performance.mark("login js loaded");  
+    if("performance" in window && performance.mark)  performance.mark("login js loaded");

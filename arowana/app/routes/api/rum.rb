@@ -3,15 +3,15 @@ module Arowana
     module RestAPI
         class RUM < BaseAPI
             get '/rest/angular' do
-                number = SecureRandom.uuid
-                # sleep(20)
+                number = SecureRandom.hex(3).upcase!
+                sleep(3)
                 return number
             end
 
 
             #restiming plugin, trigger POST REST
             post '/rest/beacon' do
-                p data = request.body.read.to_s
+              p data = request.body.read.to_s
 	            return 'POST service is ready for use!'
 
             end
