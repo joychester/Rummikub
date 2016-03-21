@@ -6,9 +6,22 @@ app.controller('RUMController',function($scope, $http, $q){
              if($('#ajaxEle').length<1) {
                 var mdiv=document.getElementById("message_div");
                 mdiv.innerHTML=response.data;
-                BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
-                BOOMR.page_ready();
-             }else{
+                //adding Boomerang variables before page_ready event triggered
+                if("BOOMR" in window && "performance" in window) {
+                  BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
+
+                  //Add custom metrics Var if Resource timing API supported
+                  if(performance.getEntriesByName && performance.now){
+                      BOOMR.addVar("t_css", window.performance.getEntriesByName("stylesheets done blocking")[0].startTime.toFixed(1));
+                      BOOMR.addVar("t_js", window.performance.getEntriesByName("commonJS done blocking")[0].startTime.toFixed(1));
+                      BOOMR.addVar("t_heroimg_loaded",window.performance.getEntriesByName("hero img loaded")[0].startTime.toFixed(1));
+                      BOOMR.addVar('t_heroimg_onload',window.performance.getEntriesByName('hero img onload')[0].startTime.toFixed(1));
+                  }
+
+                  //Trigger Page_ready event to send beacon
+                  BOOMR.page_ready();
+                }
+             } else {
                  $('#ajaxEle').text('Your Passcode Generated: '+response.data);
              };
         });

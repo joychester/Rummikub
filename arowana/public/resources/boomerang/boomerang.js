@@ -244,7 +244,7 @@ impl = {
 	beacon_switch: "on",
 
 	url_pattern: "ALL",
-	
+
 	blacklist: [],
 
 	events: {
@@ -733,53 +733,49 @@ boomr = {
 		}
 
 		if(impl.beacon_switch.toLowerCase() === "on"){
-			// if(!(("performance" in window)&&("timing" in window.performance)&&("getEntriesByType" in window.performance)&&("mark" in window.performance))){
-			// 	BOOMR.info("Browser compatibility check failed!");
-			// 	return;
-			// }
 			//check browser compatibility for Resource Timing and User Timing API
-            if(!(("performance" in window)&&("timing" in window.performance)&&(performance.now))){
+      if(!(("performance" in window)&&("timing" in window.performance)&&(performance.now))){
 				BOOMR.info("Browser compatibility check failed!");
 				return;
 			}
 			var isMatched = false;
 			var url = BOOMR.utils.cleanupURL(d.URL.replace(/#.*/, ""));
-			
-			if(typeof impl.url_pattern !== "string"){
+
+			if(Array.isArray(impl.url_pattern)){
 				for(var i in impl.url_pattern){
 					var filter = impl.url_pattern[i];
 					if(filter === "")  continue;
-					
+
 					var regex = new RegExp(filter,"gi");
 				    if(url.match(regex)){
 				    	isMatched = true;
 				    	break;
 				    }
 				}
-			  }else{
+			  } else {
 			    if(impl.url_pattern.toUpperCase() === "ALL") {
 			    	BOOMR.info("url_pattern has been set to match all url");
 			    	isMatched = true;
 			    }
-		      }
-		      
+		    }
+
 			  if (!isMatched){
-				BOOMR.info(url + " This URL isn't match, check your url_pattern!");
-				return;
-			  }else{
+					BOOMR.info(url + " This URL isn't match, check your url_pattern!");
+				  return;
+			  } else {
 			    BOOMR.info(url + " This URL is matched!");
-		      }  
-			}else{
+		    }
+			} else {
 				BOOMR.info("RUM feature not enabled!");
 				return;
 			}
-			
+
 		//set timeout to beacon
 		var t = impl.timeout;
 		if (t < 10000) {
 			BOOMR.warn("beacon send timeout value is a little bit short...consider to increase it (15 seconds by default)! ");
 		}
-		
+
 		impl.timeoutID = w.setTimeout(function(){
 			BOOMR.addVar("user_timing", window.performance.now().toFixed(1));
 			BOOMR.addVar("timeout", "true");
