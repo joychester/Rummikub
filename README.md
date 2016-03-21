@@ -32,14 +32,30 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 *  **Step 3: create a boomer_init.js file:**
 
 ```
-    BOOMR.init({
-        beacon_url: "/rest/beacon",
-        autorun: false, <!-- If you set autorun to false, this will not happen and you will need to call BOOMR.page_ready() yourself.-->
-        timeout: 15000,
-        beacon_delay: 0, // in ms
-        beacon_switch: "on", <!-- Turn on or off beacon-->
-        page_filter: "" <!-- Define Regex to filter certain URLs-->
-    });
+  BOOMR.init({
+    //===boomerang original parameters===
+    beacon_url: "/rest/beacon",//or "https:\/\/www.hostname.com\/rest\/beacon"
+    autorun: false,
+
+    //===customized parameters defined in BOOMR.init();===
+    beacon_switch: "ON", //ignore case
+    //Here we define a group of patterns, If one of them matched then the url will not be filtered.
+    //The keyword "ALL" means all url will NOT be filtered
+    //or define a Regex array: ["(^(http(s)?(:\/\/))?(www.)?)(domainname.(com|co.uk|de|fr))([-a-zA-Z0-9:%_+.~#?&//=]*)"],
+    url_pattern: "all", //ignore case
+    timeout: 15000,
+
+    //===customized parameters defined in BOOMR.sendData();===
+    blacklist: [
+                "v",// Boomerang parameters
+                "rt.start","rt.tstart","rt.bstart","rt.end","r","vis.st","vis.lh","r2" //roundtrip plugin parameters
+                //other plugins parameters
+                ],
+    beacon_delay: 0, // in ms
+
+    //===optional plugin configs===
+    RT: {}
+  });
 ```
 *  **Step 4: Combine & minify all related script file:**
 
@@ -50,18 +66,38 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 ```
 *  **Step 5: Asynchronously include the script on your page:**
 
-    Include the following code at the top of your HTML document:
+    Include the following code at the top of your HAML document:
 ```
 %script{:src => "/resources/boomerang/boomerang-<version>.js", :type => "text/javascript", :async => "async"}
 ```
+    or defer loading all related js files for debug purpose:  
+```
+%script{:src => "/resources/boomerang/boomerang.js", :type => "text/javascript", :defer => ""}
+%script{:src => "/resources/boomerang/rt.js", :type => "text/javascript", :defer => ""}
+%script{:src => "/resources/boomerang/boomer_init.js", :type => "text/javascript", :defer => ""}
+```
+
 *  **Step 6: instrument js code in a critical ajax call's success callback function:**
 
 ```
-BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
-BOOMR.page_ready();
+//adding Boomerang variables before page_ready event triggered
+if("BOOMR" in window && "performance" in window) {
+  BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
+
+  //Add custom metrics Vars if Resource timing API supported
+  //Safari and browsers on IOS which are using WKwebview do not support Resource Timing API: https://www.stevesouders.com/blog/2014/10/09/do-u-webview/  
+  if(performance.getEntriesByName && performance.now){
+      BOOMR.addVar("t_css", window.performance.getEntriesByName("stylesheets done blocking")[0].startTime.toFixed(1));
+      BOOMR.addVar("t_js", window.performance.getEntriesByName("commonJS done blocking")[0].startTime.toFixed(1));
+      BOOMR.addVar("t_heroimg_loaded",window.performance.getEntriesByName("hero img loaded")[0].startTime.toFixed(1));
+      BOOMR.addVar('t_heroimg_onload',window.performance.getEntriesByName('hero img onload')[0].startTime.toFixed(1));
+  }
+
+  //Trigger Page_ready event to sendbeacon
+  BOOMR.page_ready();
 ```
-*  **Step 7: send beacon to Extrahop:**
-*  **Step 8: Extrahop data process:**  
+*  **Step 7: send beacon to Any Data Platform:**
+*  **Step 8: Data platform generate real time dashboard:**  
 
 ### Beacon Parameters
 * **u**:  The URL of the page that sends the beacon.
@@ -72,6 +108,10 @@ BOOMR.page_ready();
 * **t_other**: Comma separated list of additional timers set by page developer. Each timer is of the format name|value
 * **_**: Hash String for security reason
 * **timeout**: Timed out flag to indicate if really a timed out or missing probe  
+* **t_css**: (Optional)Time to stylesheets done blocking, resource timing API support needed  
+* **t_js**: (Optional)Time to scripts done blocking, resource timing API support needed  
+* **t_heroimg_loaded**: (Optional)Time to Hero image (tag) loaded, resource timing API support needed  
+* **t_heroimg_onload**: (Optional)Time to Hero image rendered, resource timing API support needed  
 
 ### Regex Sample:  
 * Sample_1: http://www.domainname.com/  
