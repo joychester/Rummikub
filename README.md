@@ -126,8 +126,8 @@ if("BOOMR" in window && "performance" in window) {
 * Sample_4: All Match  
 [Regex](https://regex101.com/): /(^(http(s)?(:\/\/))?(www\.)?)(domainname.(com|co.uk|de|fr))([-a-zA-Z0-9:%\_\+.~#?&//=]\*)/gi
 
-   [Boomerang.js]: https://github.com/lognormal/boomerang/blob/master/boomerang.js
-   [plugins]: https://github.com/lognormal/boomerang/tree/master/plugins
-   [uglifyJS2]: https://github.com/mishoo/UglifyJS2
-   [Custom metrics]: https://speedcurve.com/blog/user-timing-and-custom-metrics/
-   [RUM]: https://en.wikipedia.org/wiki/Real_user_monitoring
+[Boomerang.js]: https://github.com/lognormal/boomerang/blob/master/boomerang.js
+[plugins]: https://github.com/lognormal/boomerang/tree/master/plugins
+[uglifyJS2]: https://github.com/mishoo/UglifyJS2
+[Custom metrics]: https://speedcurve.com/blog/user-timing-and-custom-metrics/
+[RUM]: https://en.wikipedia.org/wiki/Real_user_monitoring
