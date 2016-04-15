@@ -1,72 +1,103 @@
-.front-container#front-container
-    //inspiration: https://speedcurve.com/blog/user-timing-and-custom-metrics/
-    %div
-        .front-bg
-            //The image onload mark reflects the render time when the image download takes longer than any blocking resources.
-            %img.front-image{:src => "/resources/content_static/image/front_bg.jpg", 'my-click':"changeNumber()", :onload => "if('performance' in window && performance.mark){ performance.mark('hero img onload'); }"}
+!!!
+%html{:lang => "en","ng-app": "rum"}
+    %head
+        %meta{:name=>"viewport", :content => "width=device-width, initial-scale=1.0", :charset => "UTF-8"}
+        %title RUM Demo App
+        %link{:href => "/resources/bootstrap/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}
+        %link{:href => "/resources/content_static/css/style.css", :rel => "stylesheet", :type => "text/css"}
         :javascript
-            //The inline script mark reflects the render time when the image downloads quickly
-            //but blocking resources prevent it from being rendered.
-            if("performance" in window && performance.mark && performance.measure){
-                performance.mark("hero img loaded");
-                //performance.measure("PageLoadTime", "stylesheets done blocking", "hero img loaded");
+            if("performance" in window && performance.mark){
+                performance.mark("loginCSS done blocking");
             }
-        .front-card
-            .front-welcome
-                .front-welcome-text.welcome
-                    %h1 Welcome to Perfhub!
-                    %p Get the latest Page and API Performance and track any performance related stuff here!
-                    %br
-                    %div{:style=>"font-size:25px;"}
-                        Your Passcode Generated:
-                        #message_div{:style=>"display: inline !important;color: #f75;"}
-                            %image{:src=>"/resources/content_static/image/loading.gif",:style=>"width:60px;"}
-
-            .front-signin
-                %form.signin{:role => "form"}
-                    .form-group
-                        %label{:for => "emailaddr"}
-                        %input.text-input.form-control#email{:type => "email", :placeholder => "Email"}
-                    .form-group
-                        %label{:for => "password"}
-                        %input.text-input.form-control#passwd{:type => "password", :placeholder => "Password"}
-                    .form-group
-                        %label{:for => "passcode"}
-                        %input.text-input.form-control#passwd{:type => "text", :placeholder => "Dynamic Passcode"}
-                    .form-group
-                        .checkbox
-                            %input{:type => "checkbox", :value => "1", :checked => "checked"}
-                            %span Remember me
-                    %button.btn.btn-primary#signIn_btn{:type => "button"} Sign in
-
-%script{:src => "/resources/content_static/js/model.js", :type => "text/javascript"}
-
-
-:javascript
-    $("#signIn_btn").click( function () {
-        var uname = $("#email").val();
-        var pwd = $("#passwd").val();
-        $.ajax({
-            url: '/login',
-            type: 'POST',
-            data: {username: uname, passwd: pwd},
-            timeout: 10000,
-            success: function(data, status, xhr) {
-                if(data=="allowed"){
-                    window.location.href = '/home'
-                }
-                else if (data == "refused"){
-                    alert("wrong pwd!");
-                }
-                else {
-                    alert("user not found!");
-                }
-            },
-            error: function(xhr, status, err) {
-                console.log(err);
+        //%script{:src => "/resources/boomerang/boomerang-0.9.1455859232.js", :type => "text/javascript", :async => "async"}
+        %script{:src => "/resources/boomerang/boomerang.js", :type => "text/javascript", :defer => ""}
+        %script{:src => "/resources/boomerang/rt.js", :type => "text/javascript", :defer => ""}
+        %script{:src => "/resources/boomerang/boomer_init.js", :type => "text/javascript", :defer => ""}
+        %script{:src => "/resources/jquery/jquery-2.1.3.min.js", :type => "text/javascript"}
+        %script{:src => "/resources/highcharts/js/highcharts.js", :type => "text/javascript"}
+        %script{:src => "/resources/bootstrap/js/bootstrap.min.js", :type => "text/javascript"}
+        %script{:src => "/resources/angular/angular.min.js", :type => "text/javascript"}
+        %script{:src => "/resources/content_static/js/model.js", :type => "text/javascript"}
+        :javascript
+            if("performance" in window && performance.mark){
+               performance.mark("loginJS done blocking");
             }
-        });
-    });
+    %body{:onload => "loadData()",:id => "ctrl","ng-controller": "RUMController as rumCtrl"}
+        .topbar
+            .container
+                %img.stubhub_logo{:src => "/resources/content_static/image/perfhublogo.png"}
+            .page-title Perfhub
+        .front-container#front-container
+            //inspiration: https://speedcurve.com/blog/user-timing-and-custom-metrics/
+            %div
+                .front-bg
+                    //The image onload mark reflects the render time when the image download takes longer than any blocking resources.
+                    %img.front-image{:src => "/resources/content_static/image/front_bg.jpg", 'my-click':"changeNumber()", :onload => "if('performance' in window && performance.mark){ performance.mark('hero img onload'); }"}
+                :javascript
+                    //The inline script mark reflects the render time when the image downloads quickly
+                    //but blocking resources prevent it from being rendered.
+                    if("performance" in window && performance.mark && performance.measure){
+                        performance.mark("hero img loaded");
+                        //performance.measure("PageLoadTime", "stylesheets done blocking", "hero img loaded");
+                    }
+                .front-card
+                    .front-welcome
+                        .front-welcome-text.welcome
+                            %h1 Welcome to Perfhub!
+                            %p Get the latest Page and API Performance and track any performance related stuff here!
+                            %br
+                            %div{:style=>"font-size:25px;"}
+                                Your Passcode Generated:
+                                #message_div{:style=>"display: inline !important;color: #f75;"}
+                                    %image{:src=>"/resources/content_static/image/loading.gif",:style=>"width:60px;"}
 
-:javascript
-    if("performance" in window && performance.mark)  performance.mark("login js loaded");
+                    .front-signin
+                        %form.signin{:role => "form"}
+                            .form-group
+                                %label{:for => "emailaddr"}
+                                %input.text-input.form-control#email{:type => "email", :placeholder => "Email"}
+                            .form-group
+                                %label{:for => "password"}
+                                %input.text-input.form-control#passwd{:type => "password", :placeholder => "Password"}
+                            .form-group
+                                %label{:for => "passcode"}
+                                %input.text-input.form-control#passwd{:type => "text", :placeholder => "Dynamic Passcode"}
+                            .form-group
+                                .checkbox
+                                    %input{:type => "checkbox", :value => "1", :checked => "checked"}
+                                    %span Remember me
+                            %button.btn.btn-primary#signIn_btn{:type => "button"} Sign in
+
+        :javascript
+            $("#signIn_btn").click( function () {
+                var uname = $("#email").val();
+                var pwd = $("#passwd").val();
+                $.ajax({
+                    url: '/login',
+                    type: 'POST',
+                    data: {username: uname, passwd: pwd},
+                    timeout: 10000,
+                    success: function(data, status, xhr) {
+                        if(data=="allowed"){
+                            window.location.href = '/home'
+                        }
+                        else if (data == "refused"){
+                            alert("wrong pwd!");
+                        }
+                        else {
+                            alert("user not found!");
+                        }
+                    },
+                    error: function(xhr, status, err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+        :javascript
+            if("performance" in window && performance.mark) {
+              performance.mark("login js loaded");
+            }
+
+        .footer.muted-text
+            %img.chrome_logo{:src=> "/resources/content_static/image/chrome_logo.png"} <strong>&nbsp; Only Google Chrome Guaranteed</strong> :-)

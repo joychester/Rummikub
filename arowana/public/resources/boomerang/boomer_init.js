@@ -6,9 +6,9 @@ BOOMR.init({
     //===customized parameters defined in BOOMR.init();===
     beacon_switch: "ON", //ignore case
     //Here we define a group of patterns, If one of them matched then the url will not be filtered.
-    //The keyword "ALL" means all url will NOT be filtered
-    //or define a Regex array: ["(^(http(s)?(:\/\/))?(www.)?)(domainname.(com|co.uk|de|fr))([-a-zA-Z0-9:%_+.~#?&//=]*)"],
-    url_pattern: "all", //ignore case
+    //The keyword "ALL" means all url will NOT be filtered, ignore case
+    //or define a Regex array: ["(^(http(s)?(:\/\/))?(www.)?)(domainname.(com|co.uk|de|fr))([-a-zA-Z0-9:%_+.~#?&//=]*)"]
+    url_pattern: ["(.*\/login$)", "(.*\/home$)"],
     timeout: 15000,
 
     //===customized parameters defined in BOOMR.sendData();===

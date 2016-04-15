@@ -12,8 +12,8 @@ app.controller('RUMController',function($scope, $http, $q){
 
                   //Add custom metrics Var if Resource timing API supported
                   if(performance.getEntriesByName && performance.now){
-                      BOOMR.addVar("t_css", window.performance.getEntriesByName("stylesheets done blocking")[0].startTime.toFixed(1));
-                      BOOMR.addVar("t_js", window.performance.getEntriesByName("commonJS done blocking")[0].startTime.toFixed(1));
+                      BOOMR.addVar("t_css", window.performance.getEntriesByName("loginCSS done blocking")[0].startTime.toFixed(1));
+                      BOOMR.addVar("t_js", window.performance.getEntriesByName("loginJS done blocking")[0].startTime.toFixed(1));
                       BOOMR.addVar("t_heroimg_loaded",window.performance.getEntriesByName("hero img loaded")[0].startTime.toFixed(1));
                       BOOMR.addVar('t_heroimg_onload',window.performance.getEntriesByName('hero img onload')[0].startTime.toFixed(1));
                   }
