@@ -5,6 +5,8 @@ module Arowana
             get '/rest/angular' do
                 number = SecureRandom.hex(3).upcase!
                 sleep(3)
+                #simluate page timeout case
+                #sleep(10)
                 return number
             end
 
