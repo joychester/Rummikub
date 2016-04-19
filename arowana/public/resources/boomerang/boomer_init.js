@@ -19,6 +19,8 @@ BOOMR.init({
                 ],
     beacon_delay: 0, // in ms
 
+    sample_ratio: 1, //Throttling beacon samples, [0,1]
+
     //===optional plugin configs===
     RT: {}
 });
