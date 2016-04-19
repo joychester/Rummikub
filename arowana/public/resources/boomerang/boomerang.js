@@ -718,7 +718,7 @@ boomr = {
 
 	init: function(config) {
 		var i, k,
-		    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons", "timeout", "beacon_switch", "blacklist", "url_pattern","beacon_delay"];
+		    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons", "timeout", "beacon_switch", "blacklist", "url_pattern", "beacon_delay", "sample_ratio"];
 
 		BOOMR_check_doc_domain();
 
@@ -732,7 +732,8 @@ boomr = {
 			}
 		}
 
-		if(impl.beacon_switch.toLowerCase() === "on"){
+		//Check beacon_switch is on AND throttling beacon samples (Math.random() => [0,1))
+		if((impl.beacon_switch.toLowerCase() === "on") && (Math.random() < impl.sample_ratio)){
 			//check browser compatibility for Resource Timing and User Timing API
       if(!(("performance" in window)&&("timing" in window.performance)&&(performance.now))){
 				BOOMR.info("Browser compatibility check failed!");
