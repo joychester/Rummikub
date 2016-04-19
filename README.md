@@ -53,6 +53,8 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
                 ],
     beacon_delay: 0, // in ms
 
+    sample_ratio: 1, //throttling beacon samples, [0,1]
+
     //===optional plugin configs===
     RT: {}
   });
