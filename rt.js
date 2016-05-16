@@ -811,9 +811,9 @@
 				"http.errno", "http.method", "xhr.sync"
 			);
 
-			impl.setSupportingTimestamps(t_start);
+			//impl.setSupportingTimestamps(t_start); -- no need to Add those Vars
 
-			this.addTimersToBeacon();
+			//this.addTimersToBeacon(); -- no need to Add Vars here, handle them later in boomerang.js
 
 			BOOMR.addVar("r", BOOMR.utils.cleanupURL(impl.r));
 

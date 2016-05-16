@@ -861,12 +861,13 @@ BOOMR_check_doc_domain();
 				return;
 			}
 
-			//set timeout to beacon
+			//set timeout to send beacon out, cover 2 cases: page timeout or no page_ready() defined on the page
 			var t = impl.timeout;
 			if (t < 10000) {
 				BOOMR.warn("beacon send timeout value is a little bit short...consider to increase it (15 seconds by default)! ");
 			}
 			impl.timeoutID = setTimeout(function(){
+				//user_timing set to timeout value and set timeout flag to true, then fire the beacon
 				BOOMR.addVar("user_timing", window.performance.now().toFixed(1));
 				BOOMR.addVar("timeout", "true");
 				BOOMR.page_ready();
@@ -949,6 +950,7 @@ BOOMR_check_doc_domain();
 
 			BOOMR.utils.addListener(w, "DOMContentLoaded", function() { impl.fireEvent("dom_loaded"); });
 
+			/* bypass those events
 			(function() {
 				var forms, iterator;
 				if (visibilityChange !== undefined) {
@@ -977,7 +979,7 @@ BOOMR_check_doc_domain();
 					BOOMR.debug("addListener_#978_unload");
 					BOOMR.utils.addListener(w, "unload", function() { BOOMR.window=w=null; });
 				}
-			}());
+			}());*/
 
 			impl.handlers_attached = true;
 			return this;
