@@ -866,7 +866,7 @@ BOOMR_check_doc_domain();
 			if (t < 10000) {
 				BOOMR.warn("beacon send timeout value is a little bit short...consider to increase it (15 seconds by default)! ");
 			}
-			impl.timeoutID = w.setTimeout(function(){
+			impl.timeoutID = setTimeout(function(){
 				BOOMR.addVar("user_timing", window.performance.now().toFixed(1));
 				BOOMR.addVar("timeout", "true");
 				BOOMR.page_ready();
@@ -1010,7 +1010,7 @@ BOOMR_check_doc_domain();
 		disableTimeOut: function(){
 			BOOMR.debug("disableTimeOut_#1008");
 			if(typeof impl.timeoutID !== "undefined"){
-				w.clearTimeout(impl.timeoutID);
+				clearTimeout(impl.timeoutID);
 				BOOMR.info("Timeout ID Cleared: " + impl.timeoutID);
 			}
 		},
@@ -1383,7 +1383,7 @@ BOOMR_check_doc_domain();
 			//delay sending beacon
 			var t = impl.beacon_delay;
 			if (t>0 && impl.vars["timeout"] !== "true"){
-				impl.beaconDelayID = w.setTimeout(function(){
+				impl.beaconDelayID = setTimeout(function(){
 					BOOMR.utils.sendData(form, impl.beacon_type === "AUTO" ? (length > 2000 ? "POST" : "GET") : "POST");
 					BOOMR.info("Beacon sent on :" + Date.now());
 				}, t);
