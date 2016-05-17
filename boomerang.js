@@ -177,7 +177,7 @@ BOOMR_check_doc_domain();
 			JavaScript execution.
 	 */
 	dispatchEvent = function(e_name, e_data, async) {
-		BOOMR.debug("dispatchEvent_#180_" + e_name);
+		//BOOMR.debug("dispatchEvent_#180_" + e_name);
 		var ev = createCustomEvent(e_name, {"detail": e_data});
 		if (!ev) {
 			return;
@@ -291,7 +291,7 @@ BOOMR_check_doc_domain();
 		disabled_plugins: {},
 
 		xb_handler: function(type) {
-			BOOMR.debug("xb_handler_#294_" + type);
+			//BOOMR.debug("xb_handler_#294_" + type);
 			return function(ev) {
 				var target;
 				if (!ev) { ev = w.event; }
@@ -311,7 +311,7 @@ BOOMR_check_doc_domain();
 		},
 
 		fireEvent: function(e_name, data) {
-			BOOMR.debug("fireEvent_#314_" + e_name);
+			BOOMR.info("fireEvent_#313_" + e_name);
 			var i, handler, handlers;
 
 			e_name = e_name.toLowerCase();
@@ -356,7 +356,7 @@ BOOMR_check_doc_domain();
 		// Utility functions
 		utils: {
 			objectToString: function(o, separator, nest_level) {
-				BOOMR.debug("objectToString_#359");
+				//BOOMR.debug("objectToString_#359");
 				var value = [], k;
 
 				if (!o || typeof o !== "object") {
@@ -419,7 +419,7 @@ BOOMR_check_doc_domain();
 			},
 
 			getCookie: function(name) {
-				BOOMR.debug("getCookie_#422");
+				//BOOMR.debug("getCookie_#422");
 				if (!name) {
 					return null;
 				}
@@ -438,7 +438,7 @@ BOOMR_check_doc_domain();
 			},
 
 			setCookie: function(name, subcookies, max_age) {
-				BOOMR.debug("setCookie_#441");
+				//BOOMR.debug("setCookie_#441");
 				var value, nameval, savedval, c, exp;
 
 				if (!name || !impl.site_domain) {
@@ -474,7 +474,7 @@ BOOMR_check_doc_domain();
 			},
 
 			getSubCookies: function(cookie) {
-				BOOMR.debug("getSubCookies_#477");
+				//BOOMR.debug("getSubCookies_#477");
 				var cookies_a,
 				    i, l, kv,
 				    gotcookies=false,
@@ -504,12 +504,12 @@ BOOMR_check_doc_domain();
 			},
 
 			removeCookie: function(name) {
-				BOOMR.debug("removeCookie_#507");
+				//BOOMR.debug("removeCookie_#507");
 				return this.setCookie(name, {}, -86400);
 			},
 
 			cleanupURL: function(url) {
-				BOOMR.debug("cleanupURL_#512");
+				//BOOMR.debug("cleanupURL_#512");
 				if (!url || Object.prototype.toString.call(url) === "[object Array]") {
 					return "";
 				}
@@ -520,7 +520,7 @@ BOOMR_check_doc_domain();
 			},
 
 			hashQueryString: function(url, stripHash) {
-				BOOMR.debug("hashQueryString_#523");
+				//BOOMR.debug("hashQueryString_#523");
 				if (!url) {
 					return url;
 				}
@@ -545,7 +545,7 @@ BOOMR_check_doc_domain();
 			},
 
 			pluginConfig: function(o, config, plugin_name, properties) {
-				BOOMR.debug("pluginConfig_#548");
+				//BOOMR.debug("pluginConfig_#548");
 				var i, props=0;
 
 				if (!config || !config[plugin_name]) {
@@ -570,7 +570,7 @@ BOOMR_check_doc_domain();
 			 * @returns {Array} Returns the new filtered array.
 			 */
 			arrayFilter: function(array, predicate) {
-				BOOMR.debug("arrayFilter_#573");
+				//BOOMR.debug("arrayFilter_#573");
 				var result = [];
 
 				if (typeof array.filter === "function") {
@@ -592,7 +592,7 @@ BOOMR_check_doc_domain();
 			},
 
 			encodeString: function(str) {
-				BOOMR.debug("encodeString_#595");
+				//BOOMR.debug("encodeString_#595");
 				//Create Base64 security String
 				var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
 				return Base64.encode(str);
@@ -625,7 +625,7 @@ BOOMR_check_doc_domain();
 					have been cleared automatically.
 			 */
 			addObserver: function(el, config, timeout, callback, callback_data, callback_ctx) {
-				BOOMR.debug("addObserver_#628");
+				//BOOMR.debug("addObserver_#628");
 				var o = {observer: null, timer: null};
 
 				if (!window.MutationObserver || !callback || !el) {
@@ -670,7 +670,7 @@ BOOMR_check_doc_domain();
 			},
 
 			addListener: function(el, type, fn) {
-				BOOMR.debug("addListener_#673_" + type);
+				//BOOMR.debug("addListener_#673_" + type);
 				if (el.addEventListener) {
 					el.addEventListener(type, fn, false);
 				}
@@ -680,7 +680,7 @@ BOOMR_check_doc_domain();
 			},
 
 			removeListener: function(el, type, fn) {
-				BOOMR.debug("removeListener_#683");
+				//BOOMR.debug("removeListener_#683");
 				if (el.removeEventListener) {
 					el.removeEventListener(type, fn, false);
 				}
@@ -690,7 +690,7 @@ BOOMR_check_doc_domain();
 			},
 
 			pushVars: function(form, vars, prefix) {
-				BOOMR.debug("pushVars_#693");
+				//BOOMR.debug("pushVars_#693");
 				var k, i, l=0, input;
 
 				for (k in vars) {
@@ -717,7 +717,7 @@ BOOMR_check_doc_domain();
 			},
 
 			sendData: function(form, method) {
-				BOOMR.debug("sendData_#720");
+				BOOMR.info("sendData_#720");
 				var input = document.createElement("input"),
 				    urls = [ impl.beacon_url ];
 
@@ -806,7 +806,7 @@ BOOMR_check_doc_domain();
 		},
 
 		init: function(config) {
-			BOOMR.debug("init_#809");
+			BOOMR.info("init_#809");
 			var i, k,
 			    properties = ["beacon_url", "beacon_type", "site_domain", "user_ip", "strip_query_string", "secondary_beacons", "autorun", "timeout", "beacon_switch", "blacklist", "url_pattern", "beacon_delay", "sample_ratio"];
 
@@ -997,7 +997,7 @@ BOOMR_check_doc_domain();
 		// The page dev calls this method when they determine the page is usable.
 		// Only call this if autorun is explicitly set to false
 		page_ready: function(ev) {
-			BOOMR.debug("page_ready_#995");
+			//BOOMR.debug("page_ready_#995");
 			if (!ev) { ev = w.event; }
 			if (!ev) { ev = { name: "load" }; }
 			if (impl.onloadfired) {
@@ -1010,7 +1010,7 @@ BOOMR_check_doc_domain();
 		},
 
 		disableTimeOut: function(){
-			BOOMR.debug("disableTimeOut_#1008");
+			//BOOMR.debug("disableTimeOut_#1008");
 			if(typeof impl.timeoutID !== "undefined"){
 				clearTimeout(impl.timeoutID);
 				BOOMR.info("Timeout ID Cleared: " + impl.timeoutID);
@@ -1018,7 +1018,7 @@ BOOMR_check_doc_domain();
 		},
 
 		setImmediate: function(fn, data, cb_data, cb_scope) {
-			BOOMR.debug("setImmediate_#1016");
+			//BOOMR.debug("setImmediate_#1016");
 			var cb, cstack;
 
 			// DEBUG: This is to help debugging, we'll see where setImmediate calls were made from
@@ -1071,7 +1071,7 @@ BOOMR_check_doc_domain();
 		lastVisibilityEvent: {},
 
 		subscribe: function(e_name, fn, cb_data, cb_scope) {
-			BOOMR.debug("subscribe_#1070_" + e_name);
+			//BOOMR.debug("subscribe_#1070_" + e_name);
 			var i, handler, ev;
 
 			e_name = e_name.toLowerCase();
@@ -1136,7 +1136,7 @@ BOOMR_check_doc_domain();
 		},
 
 		addError: function(err, src, extra) {
-			BOOMR.debug("addError_#1134");
+			//BOOMR.debug("addError_#1134");
 			var str;
 			if (typeof err !== "string") {
 				str = String(err);
@@ -1161,7 +1161,7 @@ BOOMR_check_doc_domain();
 		},
 
 		isCrossOriginError: function(err) {
-			BOOMR.debug("isCrossOriginError_#1159");
+			//BOOMR.debug("isCrossOriginError_#1159");
 			// These are expected for cross-origin iframe access, although the Internet Explorer check will only
 			// work for browsers using English.
 			return err.name === "SecurityError" ||
@@ -1170,7 +1170,7 @@ BOOMR_check_doc_domain();
 		},
 
 		addVar: function(name, value) {
-			BOOMR.debug("addVar_#1168_" + name);
+			//BOOMR.debug("addVar_#1168_" + name);
 			if (typeof name === "string") {
 				impl.vars[name] = value;
 			}
@@ -1186,7 +1186,7 @@ BOOMR_check_doc_domain();
 		},
 
 		removeVar: function(arg0) {
-			BOOMR.debug("removeVar_#1184");
+			//BOOMR.debug("removeVar_#1184");
 			var i, params;
 			if (!arguments.length) {
 				return this;
@@ -1210,17 +1210,17 @@ BOOMR_check_doc_domain();
 		},
 
 		clearVars: function(){
-			BOOMR.debug("clearVars_#1208");
+			//BOOMR.debug("clearVars_#1208");
 			impl.vars = {};
 		},
 
 		hasVar: function(name) {
-			BOOMR.debug("hasVar_#1213");
+			//BOOMR.debug("hasVar_#1213");
 			return impl.vars.hasOwnProperty(name);
 		},
 
 		requestStart: function(name) {
-			BOOMR.debug("requestStart_#1218");
+			//BOOMR.debug("requestStart_#1218");
 			var t_start = BOOMR.now();
 			BOOMR.plugins.RT.startTimer("xhr_" + name, t_start);
 
@@ -1232,7 +1232,7 @@ BOOMR_check_doc_domain();
 		},
 
 		responseEnd: function(name, t_start, data) {
-			BOOMR.debug("responseEnd_#1230");
+			//BOOMR.debug("responseEnd_#1230");
 			if (typeof name === "object" && name.url) {
 				impl.fireEvent("xhr_load", name);
 			}
@@ -1260,7 +1260,7 @@ BOOMR_check_doc_domain();
 		instrumentXHR: function() {},
 
 		sendBeacon: function(beacon_url_override) {
-			BOOMR.debug("sendBeacon_#1258");
+			BOOMR.info("sendBeacon_#1263");
 			// This plugin wants the beacon to go somewhere else,
 			// so update the location
 			if (beacon_url_override) { //beacon_url_override is undefined in rt.js
@@ -1276,7 +1276,7 @@ BOOMR_check_doc_domain();
 		},
 
 		real_sendBeacon: function() {
-			BOOMR.debug("real_sendBeacon_#1274");
+			BOOMR.info("real_sendBeacon_#1279");
 			var k, form, length=0, errors=[];
 
 			if (!impl.beaconQueued) {
@@ -1285,7 +1285,7 @@ BOOMR_check_doc_domain();
 
 			impl.beaconQueued = false;
 
-			BOOMR.debug("Checking if we can send beacon");
+			//BOOMR.debug("Checking if we can send beacon");
 
 			// At this point someone is ready to send the beacon.  We send
 			// the beacon only if all plugins have finished doing what they
@@ -1360,7 +1360,7 @@ BOOMR_check_doc_domain();
 			// Don't send a beacon if no beacon_url has been set
 			// you would do this if you want to do some fancy beacon handling
 			// in the `before_beacon` event instead of a simple GET request
-			BOOMR.debug("Ready to send beacon: " + BOOMR.utils.objectToString(impl.vars));
+			//BOOMR.debug("Ready to send beacon: " + BOOMR.utils.objectToString(impl.vars));
 			if (!impl.beacon_url) {
 				BOOMR.debug("No beacon URL, so skipping.");
 				return true;
@@ -1375,7 +1375,8 @@ BOOMR_check_doc_domain();
 			length = BOOMR.utils.pushVars(form, impl.vars);
 
 			// If we reach here, we've transferred all vars to the beacon URL.
-			impl.fireEvent("onbeacon", impl.vars);
+			// onbeacon event handler just simply remove RT plugin vars, use BOOMR.clearVars(); instead
+			//impl.fireEvent("onbeacon", impl.vars);
 
 			if (length === 0) {
 				// do not make the request if there is no data
@@ -1399,6 +1400,7 @@ BOOMR_check_doc_domain();
 				BOOMR.info("Beacon sent on :" + Date.now());
 			}
 
+			//clear all vars at the end
 			BOOMR.clearVars();
 
 			return true;

@@ -7,7 +7,7 @@
 // This is the Round Trip Time plugin.  Abbreviated to RT
 // the parameter is the window
 (function(w) {
-	BOOMR.debug("RTPlugin_Start_#9");
+	//BOOMR.debug("RTPlugin_Start_#9");
 
 /*eslint no-underscore-dangle:0*/
 
@@ -63,7 +63,7 @@
 		 * @returns true if the cookie was updated, false if the cookie could not be set for any reason
 		 */
 		updateCookie: function(params, timer) {
-			BOOMR.debug("RTPlugin_updateCookie_#65");
+			//BOOMR.debug("RTPlugin_updateCookie_#65");
 			var t_end, t_start, subcookies, k;
 
 			// Disable use of RT cookie by setting its name to a falsy value
@@ -133,7 +133,7 @@
 		 * browsers.
 		 */
 		initFromCookie: function() {
-			BOOMR.debug("RTPlugin_initFromCookie_#135");
+			//BOOMR.debug("RTPlugin_initFromCookie_#135");
 			var url, subcookies;
 			subcookies = BOOMR.utils.getSubCookies(BOOMR.utils.getCookie(this.cookie));
 
@@ -193,7 +193,7 @@
 		 * Figure out how long boomerang and config.js took to load using resource timing if available, or built in timestamps
 		 */
 		getBoomerangTimings: function() {
-			BOOMR.debug("RTPlugin_getBoomerangTimings_#195");
+			//BOOMR.debug("RTPlugin_getBoomerangTimings_#195");
 			var res, urls, url, startTime, data;
 
 			function trimTiming(time, st) {
@@ -273,7 +273,7 @@
 		 * @returns true if this is a prerender state, false if not (or not supported)
 		 */
 		checkPreRender: function() {
-			BOOMR.debug("RTPlugin_checkPreRender_#275");
+			//BOOMR.debug("RTPlugin_checkPreRender_#275");
 			if (BOOMR.visibilityState() !== "prerender") {
 				return false;
 			}
@@ -299,7 +299,7 @@
 		 * It sets the beacon parameter `rt.start` to the source of the timer
 		 */
 		initFromNavTiming: function() {
-			BOOMR.debug("RTPlugin_initFromNavTiming_#301");
+			//BOOMR.debug("RTPlugin_initFromNavTiming_#301");
 			var ti, p, source;
 
 			if (this.navigationStart) {
@@ -365,7 +365,7 @@
 		 * after onload, so in that case, if navigation timing is available, we use that instead.
 		 */
 		validateLoadTimestamp: function(t_now, data, ename) {
-			BOOMR.debug("RTPlugin_validateLoadTimestamp_#367");
+			//BOOMR.debug("RTPlugin_validateLoadTimestamp_#367");
 
 			// beacon with detailed timing information
 			if (data && data.timing && data.timing.loadEventEnd) {
@@ -412,7 +412,7 @@
 		 * @returns true if timers were set, false if we're in a prerender state, caller should abort on false.
 		 */
 		setPageLoadTimers: function(ename, t_done, data) {
-			BOOMR.debug("RTPlugin_setPageLoadTimers_#414");
+			//BOOMR.debug("RTPlugin_setPageLoadTimers_#414");
 			var t_resp_start;
 
 			if (ename !== "xhr") {
@@ -476,7 +476,7 @@
 		 * @param t_start The value of t_start that we plan to use
 		 */
 		setSupportingTimestamps: function(t_start) {
-			BOOMR.debug("RTPlugin_setSupportingTimestamps_#478");
+			//BOOMR.debug("RTPlugin_setSupportingTimestamps_#478");
 			if (t_start) {
 				BOOMR.addVar("rt.tstart", t_start);
 			}
@@ -507,7 +507,7 @@
 		 * @returns the determined value of t_start or undefined if unknown
 		 */
 		determineTStart: function(ename, data) {
-			BOOMR.debug("RTPlugin_determineTStart_#509");
+			//BOOMR.debug("RTPlugin_determineTStart_#509");
 			var t_start;
 			if (ename==="xhr") {
 				if (data && data.name && impl.timers[data.name]) {
@@ -548,7 +548,7 @@
 		},
 
 		page_ready: function() {
-			BOOMR.debug("RTPlugin_page_ready_#550");
+			//BOOMR.debug("RTPlugin_page_ready_#550");
 			// we need onloadfired because it's possible to reset "impl.complete"
 			// if you're measuring multiple xhr loads, but not possible to reset
 			// impl.onloadfired
@@ -556,7 +556,7 @@
 		},
 
 		check_visibility: function() {
-			BOOMR.debug("RTPlugin_check_visibility_#558");
+			//BOOMR.debug("RTPlugin_check_visibility_#558");
 			// we care if the page became visible at some point
 			if (BOOMR.visibilityState() === "visible") {
 				impl.visiblefired = true;
@@ -570,7 +570,7 @@
 		},
 
 		page_unload: function(edata) {
-			BOOMR.debug("RTPlugin_page_unload_#572");
+			//BOOMR.debug("RTPlugin_page_unload_#572");
 			BOOMR.debug("Unload called with " + BOOMR.utils.objectToString(edata) + " when unloadfired = " + this.unloadfired, "rt");
 			if (!this.unloadfired) {
 				// run done on abort or on page_unload to measure session length
@@ -586,7 +586,7 @@
 		},
 
 		_iterable_click: function(name, element, etarget, value_cb) {
-			BOOMR.debug("RTPlugin__iterable_click_#588");
+			//BOOMR.debug("RTPlugin__iterable_click_#588");
 			var value;
 			if (!etarget) {
 				return;
@@ -610,12 +610,12 @@
 		},
 
 		onclick: function(etarget) {
-			BOOMR.debug("RTPlugin_onclick_#612");
+			//BOOMR.debug("RTPlugin_onclick_#612");
 			impl._iterable_click("Click", "A", etarget, function(t) { return t.href; });
 		},
 
 		onsubmit: function(etarget) {
-			BOOMR.debug("RTPlugin_onsubmit_#617");
+			//BOOMR.debug("RTPlugin_onsubmit_#617");
 			impl._iterable_click("Submit", "FORM", etarget, function(t) {
 				var v = t.getAttribute("action") || d.URL || "";
 				return v.match(/\?/) ? v : v + "?";
@@ -623,12 +623,12 @@
 		},
 
 		domloaded: function() {
-			BOOMR.debug("RTPlugin_domloaded_#625");
+			//BOOMR.debug("RTPlugin_domloaded_#625");
 			BOOMR.plugins.RT.endTimer("t_domloaded");
 		},
 
 		clear: function() {
-			BOOMR.debug("RTPlugin_clear_#630");
+			//BOOMR.debug("RTPlugin_clear_#630");
 			if (impl.addedVars && impl.addedVars.length > 0) {
 				BOOMR.removeVar(impl.addedVars);
 				impl.addedVars = [];
@@ -640,7 +640,7 @@
 		// Methods
 
 		init: function(config) {
-			BOOMR.debug("RTPlugin_init_#642");
+			//BOOMR.debug("RTPlugin_init_#642");
 			BOOMR.debug("init RT", "rt");
 			if (w !== BOOMR.window) {
 				w = BOOMR.window;
@@ -686,14 +686,14 @@
 			//BOOMR.subscribe("click", impl.onclick, null, impl);
 			//BOOMR.subscribe("form_submit", impl.onsubmit, null, impl);
 			BOOMR.subscribe("before_beacon", this.addTimersToBeacon, "beacon", this);
-			BOOMR.subscribe("onbeacon", impl.clear, null, impl);
+			//BOOMR.subscribe("onbeacon", impl.clear, null, impl);
 
 			impl.initialized = true;
 			return this;
 		},
 
 		startTimer: function(timer_name, time_value) {
-			BOOMR.debug("RTPlugin_startTimer_#695");
+			//BOOMR.debug("RTPlugin_startTimer_#695");
 			if (timer_name) {
 				if (timer_name === "t_page") {
 					this.endTimer("t_resp", time_value);
@@ -705,7 +705,7 @@
 		},
 
 		endTimer: function(timer_name, time_value) {
-			BOOMR.debug("RTPlugin_endTimer_#707");
+			//BOOMR.debug("RTPlugin_endTimer_#707");
 			if (timer_name) {
 				impl.timers[timer_name] = impl.timers[timer_name] || {};
 				if (impl.timers[timer_name].end === undefined) {
@@ -718,7 +718,7 @@
 		},
 
 		setTimer: function(timer_name, time_delta) {
-			BOOMR.debug("RTPlugin_setTimer_#720");
+			//BOOMR.debug("RTPlugin_setTimer_#720");
 			if (timer_name) {
 				impl.timers[timer_name] = { delta: time_delta };
 			}
@@ -727,7 +727,7 @@
 		},
 
 		addTimersToBeacon: function(vars, source) {
-			BOOMR.debug("RTPlugin_addTimersToBeacon_#729");
+			//BOOMR.debug("RTPlugin_addTimersToBeacon_#729");
 			var t_name, timer,
 			    t_other=[];
 
@@ -776,7 +776,7 @@
 		// onload event fires, or it could be at some other moment during/after page
 		// load when the page is usable by the user
 		done: function(edata, ename) {
-			BOOMR.debug("RTPlugin_done_#778");
+			BOOMR.info("RTPlugin_done_#778");
 			// try/catch just in case edata contains cross-origin data and objectToString throws a security exception
 			try {
 				BOOMR.debug("Called done with " + BOOMR.utils.objectToString(edata, undefined, 1) + ", " + ename, "rt");
@@ -885,10 +885,10 @@
 			return this;
 		},
 
-		is_complete: function() { BOOMR.debug("RTPlugin_is_complete_#888"); return impl.complete; },
+		is_complete: function() { BOOMR.info("RTPlugin_is_complete_#888"); return impl.complete; },
 
 		navigationStart: function() {
-			BOOMR.debug("RTPlugin_navigationStart_#890");
+			//BOOMR.debug("RTPlugin_navigationStart_#890");
 			if (!impl.navigationStart) {
 				impl.initFromNavTiming();
 			}
