@@ -1,0 +1,110 @@
+===load boomerang.js and rt.js===
+boomerang: [debug] dispatchEvent_#180_onBoomerangLoaded
+boomerang: [debug] setImmediate_#1016
+boomerang: [debug] RTPlugin_Start_#9
+
+===Call init===
+boomerang: [debug] init_#809
+boomerang: [debug] cleanupURL_#512
+boomerang: [info] http://localhost:9292/login This URL is matched!
+boomerang: [info] Timeout ID Set: 2
+boomerang: [debug] RTPlugin_init_#642
+boomerang.rt: [debug] init RT
+boomerang: [debug] pluginConfig_#548
+boomerang: [debug] hashQueryString_#523
+boomerang: [debug] RTPlugin_initFromCookie_#135
+boomerang: [debug] getCookie_#422
+boomerang: [debug] getSubCookies_#477
+boomerang: [debug] RTPlugin_getBoomerangTimings_#195
+boomerang: [debug] RTPlugin_startTimer_#695
+boomerang: [debug] RTPlugin_endTimer_#707
+boomerang: [debug] RTPlugin_endTimer_#707
+boomerang: [debug] subscribe_#1070_page_ready
+boomerang: [debug] subscribe_#1070_xhr_load
+boomerang: [debug] subscribe_#1070_dom_loaded
+boomerang: [debug] subscribe_#1070_before_beacon
+boomerang: [debug] addListener_#673_DOMContentLoaded
+
+===Fire DomLoadedEvent===
+boomerang: [debug] fireEvent_#314_dom_loaded
+boomerang: [debug] RTPlugin_domloaded_#625
+boomerang: [debug] RTPlugin_endTimer_#707
+
+===Add Custom Vars===
+boomerang: [debug] addVar_#1168_user_timing
+boomerang: [debug] addVar_#1168_t_css
+boomerang: [debug] addVar_#1168_t_js
+boomerang: [debug] addVar_#1168_t_heroimg_loaded
+boomerang: [debug] addVar_#1168_t_heroimg_onload
+
+===Fire page ready event===
+boomerang: [debug] page_ready_#995
+boomerang: [debug] fireEvent_#314_page_ready
+====Call this.done event handler====
+boomerang: [debug] RTPlugin_done_#778
+boomerang: [debug] objectToString_#359
+boomerang.rt: [debug] Called done with isTrusted=true, load
+boomerang: [debug] RTPlugin_validateLoadTimestamp_#367
+boomerang: [debug] RTPlugin_setPageLoadTimers_#414
+boomerang: [debug] RTPlugin_initFromCookie_#135
+boomerang: [debug] getCookie_#422
+boomerang: [debug] getSubCookies_#477
+boomerang: [debug] RTPlugin_initFromNavTiming_#301
+boomerang: [debug] addVar_#1168_rt.start
+boomerang: [debug] RTPlugin_checkPreRender_#275
+boomerang: [debug] RTPlugin_endTimer_#707
+boomerang: [debug] RTPlugin_setTimer_#720
+boomerang: [debug] RTPlugin_determineTStart_#509
+boomerang.rt: [debug] Got start time: 1463475817201
+boomerang: [debug] RTPlugin_endTimer_#707
+boomerang: [debug] removeVar_#1184
+boomerang: [debug] cleanupURL_#512
+boomerang: [debug] addVar_#1168_r
+boomerang: [debug] RTPlugin_updateCookie_#65
+boomerang: [debug] getCookie_#422
+boomerang: [debug] getSubCookies_#477
+boomerang: [debug] objectToString_#359
+boomerang.rt: [debug] Setting cookie (timer=undefined)
+boomerang: [debug] setCookie_#441
+boomerang: [debug] objectToString_#359
+boomerang: [debug] getCookie_#422
+====Call BOOMR.sendBeacon()====
+boomerang: [debug] sendBeacon_#1258
+boomerang: [debug] setImmediate_#1016
+boomerang: [debug] disableTimeOut_#1008
+boomerang: [info] Timeout ID Cleared: 2
+====execute real_sendBeacon()====
+boomerang: [debug] real_sendBeacon_#1274
+boomerang: [debug] Checking if we can send beacon
+boomerang: [debug] RTPlugin_is_complete_#888
+boomerang: [debug] cleanupURL_#512
+boomerang: [debug] fireEvent_#314_before_beacon
+boomerang: [debug] dispatchEvent_#180_onBeforeBoomerangBeacon
+boomerang: [debug] RTPlugin_addTimersToBeacon_#729
+boomerang: [debug] addVar_#1168_t_resp
+boomerang: [debug] addVar_#1168_t_page
+boomerang: [debug] addVar_#1168_t_done
+boomerang: [debug] addVar_#1168_t_other
+boomerang: [debug] encodeString_#595
+boomerang: [debug] addVar_#1168__
+boomerang: [debug] objectToString_#359
+boomerang: [debug] Ready to send beacon: user_timing=3210.4
+	t_css=71.3
+	t_js=135.6
+	t_heroimg_loaded=135.9
+	t_heroimg_onload=137.3
+	rt.start=navigation
+	r=
+	u=http://localhost:9292/login
+	v=0.9
+	vis.st=visible
+	t_resp=20
+	t_page=3193
+	t_done=3213
+	t_other=t_domloaded|190
+	_=MTQ2MzQ3NTgxNzIwMV8zMjEwLjRfMTQ2MzQ3NTgyMDQzNA==
+boomerang: [debug] pushVars_#693
+boomerang: [info] Beacon delay timeoutID Set:5
+boomerang: [debug] clearVars_#1208
+boomerang: [debug] sendData_#720
+boomerang: [info] Beacon sent on :1463475822444
