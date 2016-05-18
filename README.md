@@ -88,15 +88,14 @@ if("BOOMR" in window && "performance" in window) {
 
   //Add custom metrics Vars if Resource timing API supported
   //Safari and browsers on IOS which are using WKwebview do not support Resource Timing API: https://www.stevesouders.com/blog/2014/10/09/do-u-webview/  
-  if(performance.getEntriesByName && performance.now){
-      BOOMR.addVar("t_css", window.performance.getEntriesByName("stylesheets done blocking")[0].startTime.toFixed(1));
-      BOOMR.addVar("t_js", window.performance.getEntriesByName("commonJS done blocking")[0].startTime.toFixed(1));
-      BOOMR.addVar("t_heroimg_loaded",window.performance.getEntriesByName("hero img loaded")[0].startTime.toFixed(1));
-      BOOMR.addVar('t_heroimg_onload',window.performance.getEntriesByName('hero img onload')[0].startTime.toFixed(1));
-  }
+  BOOMR.addUTVar('t_css', 'loginCSS done blocking');  
+  BOOMR.addUTVar('t_js', 'loginJS done blocking');  
+  BOOMR.addUTVar('t_heroimg_loaded', 'hero img loaded');  
+  BOOMR.addUTVar('t_heroimg_onload', 'hero img onload');  
 
   //Trigger Page_ready event to sendbeacon
   BOOMR.page_ready();
+}  
 ```
 *  **Step 7: send beacon to Any Data Platform:**
 *  **Step 8: Data platform generate real time dashboard:**  
