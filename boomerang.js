@@ -1169,6 +1169,7 @@ BOOMR_check_doc_domain();
 				(err.name === "Error" && err.message && err.message.match(/^(Permission|Access is) denied/));
 		},
 
+		//add key value pairs in BOOMR beacon_url
 		addVar: function(name, value) {
 			//BOOMR.debug("addVar_#1168_" + name);
 			if (typeof name === "string") {
@@ -1181,6 +1182,20 @@ BOOMR_check_doc_domain();
 						impl.vars[k] = o[k];
 					}
 				}
+			}
+			return this;
+		},
+
+		//add cusomer metric by user defined on their pages with User Timing API, (string, string) supported
+		addUTVar: function(var_name, mark_name) {
+			BOOMR.debug("addUTVar_#1190_" + var_name);
+			if(performance.getEntriesByName) {
+				if (typeof var_name === "string" && typeof mark_name === "string") {
+					value = window.performance.getEntriesByName(mark_name)[0].startTime.toFixed(1);
+					impl.vars[var_name] = value;
+				}
+			} else {
+			    BOOMR.debug("performance.getEntriesByName() method is not supported yet");
 			}
 			return this;
 		},
