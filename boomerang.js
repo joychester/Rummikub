@@ -1188,7 +1188,7 @@ BOOMR_check_doc_domain();
 
 		//add cusomer metric by user defined on their pages with User Timing API, (string, string) supported
 		addUTVar: function(var_name, mark_name) {
-			BOOMR.debug("addUTVar_#1190_" + var_name);
+			//BOOMR.debug("addUTVar_#1190_" + var_name);
 			if(performance.getEntriesByName) {
 				if (typeof var_name === "string" && typeof mark_name === "string") {
 					value = window.performance.getEntriesByName(mark_name)[0].startTime.toFixed(1);
