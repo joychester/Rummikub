@@ -107,7 +107,7 @@ if("BOOMR" in window && "performance" in window) {
 * **t_resp**: Time to First Byte.
 * **t_done**: The same as user_timing, Perceived load time of the page.
 * **t_page**: t_page = t_done - t_resp.  
-* **t_other**: Comma separated list of additional timers set by page developer. Each timer is of the format name|value
+* **t_other**: Additional timers(t_domloaded) set by page developer.
 * **_**: Hash String for security reason
 * **timeout**: Timed out flag to indicate if really a timed out or missing probe  
 * **t_css**: (Optional)Time to stylesheets done blocking, resource timing API support needed  
