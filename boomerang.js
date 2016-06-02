@@ -946,36 +946,37 @@ BOOMR_check_doc_domain();
 
 			BOOMR.utils.addListener(w, "DOMContentLoaded", function() { impl.fireEvent("dom_loaded"); });
 
-			/* bypass those events
-			(function() {
-				var forms, iterator;
-				if (visibilityChange !== undefined) {
-					BOOMR.debug("addListener_#956_visibilityChange");
-					BOOMR.utils.addListener(d, visibilityChange, function() { impl.fireEvent("visibility_changed"); });
-
-					// record the last time each visibility state occurred
-					BOOMR.subscribe("visibility_changed", function() {
-						BOOMR.lastVisibilityEvent[BOOMR.visibilityState()] = BOOMR.now();
-					});
-				}
-				BOOMR.debug("addListener_#964_mouseup");
-				BOOMR.utils.addListener(d, "mouseup", impl.xb_handler("click"));
-
-				forms = d.getElementsByTagName("form");
-				for (iterator = 0; iterator < forms.length; iterator++) {
-					BOOMR.debug("addListener_#969_formsubmit");
-					BOOMR.utils.addListener(forms[iterator], "submit", impl.xb_handler("form_submit"));
-				}
-
-				if (!w.onpagehide && w.onpagehide !== null) {
-					// This must be the last one to fire
-					// We only clear w on browsers that don't support onpagehide because
-					// those that do are new enough to not have memory leak problems of
-					// some older browsers
-					BOOMR.debug("addListener_#978_unload");
-					BOOMR.utils.addListener(w, "unload", function() { BOOMR.window=w=null; });
-				}
-			}());*/
+			/** bypass those events
+			 * (function() {
+			 *  var forms, iterator;
+			 *  if (visibilityChange !== undefined) {
+			 *		BOOMR.debug("addListener_#956_visibilityChange");
+			 *		BOOMR.utils.addListener(d, visibilityChange, function() { impl.fireEvent("visibility_changed"); });
+			 *
+			 *		// record the last time each visibility state occurred
+			 *		BOOMR.subscribe("visibility_changed", function() {
+			 *			BOOMR.lastVisibilityEvent[BOOMR.visibilityState()] = BOOMR.now();
+			 *		});
+			 *	}
+			 *	BOOMR.debug("addListener_#964_mouseup");
+			 *	BOOMR.utils.addListener(d, "mouseup", impl.xb_handler("click"));
+			 *
+			 *	forms = d.getElementsByTagName("form");
+			 *	for (iterator = 0; iterator < forms.length; iterator++) {
+			 *		BOOMR.debug("addListener_#969_formsubmit");
+			 *		BOOMR.utils.addListener(forms[iterator], "submit", impl.xb_handler("form_submit"));
+			 *	}
+			 *
+			 *	if (!w.onpagehide && w.onpagehide !== null) {
+			 *		// This must be the last one to fire
+			 *		// We only clear w on browsers that don't support onpagehide because
+			 *		// those that do are new enough to not have memory leak problems of
+			 *		// some older browsers
+			 *		BOOMR.debug("addListener_#978_unload");
+			 *		BOOMR.utils.addListener(w, "unload", function() { BOOMR.window=w=null; });
+			 *	}
+			 * }());
+			 */
 
 			impl.handlers_attached = true;
 			return this;
@@ -1274,11 +1275,13 @@ BOOMR_check_doc_domain();
 			BOOMR.info("sendBeacon_#1263");
 			// This plugin wants the beacon to go somewhere else,
 			// so update the location
-			if (beacon_url_override) { //beacon_url_override is undefined in rt.js
+			if (beacon_url_override) {
+				//beacon_url_override is undefined in rt.js
 				impl.beacon_url = beacon_url_override;
 			}
 
-			if (!impl.beaconQueued) { //beaconQueued is undefined
+			if (!impl.beaconQueued) {
+				//beaconQueued is undefined
 				impl.beaconQueued = true;
 				BOOMR.setImmediate(BOOMR.real_sendBeacon, null, null, BOOMR);
 			}
