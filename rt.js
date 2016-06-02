@@ -885,7 +885,10 @@
 			return this;
 		},
 
-		is_complete: function() { BOOMR.info("RTPlugin_is_complete_#888"); return impl.complete; },
+		is_complete: function() {
+			BOOMR.info("RTPlugin_is_complete_#888");
+			return impl.complete;
+		},
 
 		navigationStart: function() {
 			//BOOMR.debug("RTPlugin_navigationStart_#890");
