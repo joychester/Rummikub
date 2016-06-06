@@ -8,15 +8,13 @@ app.controller('RUMController',function($scope, $http, $q){
                 mdiv.innerHTML=response.data;
                 //adding Boomerang variables before page_ready event triggered
                 if("BOOMR" in window && "performance" in window) {
-                  BOOMR.addVar("user_timing",window.performance.now().toFixed(1));
+                  BOOMR.addVar('user_timing',window.performance.now().toFixed(1));
 
                   //Add custom metrics Var if Resource timing API supported
-                  if(performance.getEntriesByName && performance.now){
-                      BOOMR.addVar("t_css", window.performance.getEntriesByName("loginCSS done blocking")[0].startTime.toFixed(1));
-                      BOOMR.addVar("t_js", window.performance.getEntriesByName("loginJS done blocking")[0].startTime.toFixed(1));
-                      BOOMR.addVar("t_heroimg_loaded",window.performance.getEntriesByName("hero img loaded")[0].startTime.toFixed(1));
-                      BOOMR.addVar('t_heroimg_onload',window.performance.getEntriesByName('hero img onload')[0].startTime.toFixed(1));
-                  }
+                  shBoomrExt.addUMVar('t_css', 'loginCSS done blocking');
+                  shBoomrExt.addUMVar('t_js', 'loginJS done blocking');
+                  shBoomrExt.addUMVar('t_heroimg_loaded', 'hero img loaded');
+                  shBoomrExt.addUMVar('t_heroimg_onload', 'hero img onload');
 
                   //Trigger Page_ready event to send beacon
                   BOOMR.page_ready();
