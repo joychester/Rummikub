@@ -37,24 +37,6 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
     beacon_url: "/rest/beacon",//or "https:\/\/www.hostname.com\/rest\/beacon"
     autorun: false,
 
-    //===customized parameters defined in BOOMR.init();===
-    beacon_switch: "ON", //ignore case
-    //Here we define a group of patterns, If one of them matched then the url will not be filtered.
-    //The keyword "ALL" means all url will NOT be filtered
-    //or define a Regex array: ["(^(http(s)?(:\/\/))?(www.)?)(domainname.(com|co.uk|de|fr))([-a-zA-Z0-9:%_+.~#?&//=]*)"],
-    url_pattern: "all", //ignore case
-    timeout: 15000,
-
-    //===customized parameters defined in BOOMR.sendData();===
-    blacklist: [
-                "v",// Boomerang parameters
-                "rt.start","rt.tstart","rt.bstart","rt.end","r","vis.st","vis.lh","r2" //roundtrip plugin parameters
-                //other plugins parameters
-                ],
-    beacon_delay: 0, // in ms
-
-    sample_ratio: 1, //throttling beacon samples, [0,1]
-
     //===optional plugin configs===
     RT: {}
   });
@@ -65,7 +47,7 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 ```
   > * ~/workspace (master) $ npm install uglify-js -g  
   > Please make sure the boomerang Makefile exists
-  > * ~/workspace/Rummikub/arowana/public/resources/boomerang (master) $ make PLUGINS="rt.js boomer_init.js" MINIFIER="uglifyjs -c -m"
+  > * ~/workspace/Rummikub/arowana/public/resources/boomerang (master) $ make PLUGINS="rt.js boomer_init.js sh_boomr_ext.js" MINIFIER="uglifyjs -c -m"
 ```
 *  **Step 5: Asynchronously include the script on your page:**
 
@@ -73,11 +55,12 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 ```
 %script{:src => "/resources/boomerang/boomerang-<version>.js", :type => "text/javascript", :async => "async"}
 ```
-    or defer loading all related js files for debug purpose:  
+    or "defer"(sometimes you can not) loading all related js files for debug purpose:  
 ```
 %script{:src => "/resources/boomerang/boomerang.js", :type => "text/javascript", :defer => ""}
 %script{:src => "/resources/boomerang/rt.js", :type => "text/javascript", :defer => ""}
 %script{:src => "/resources/boomerang/boomer_init.js", :type => "text/javascript", :defer => ""}
+%script{:src => "/resources/boomerang/sh_boomr_ext.js", :type => "text/javascript", :defer => ""}
 ```
 
 *  **Step 6: instrument js code in a critical ajax call's success callback function:**
