@@ -37,13 +37,13 @@ var shBoomrExt = {
   },
 
   //beacon_switch, sample_ratio, url_pattern and browser compatibility check
-  beaconSwitchCheck: function(doc) {
+  isBeaconEnabled: function(doc) {
     //Check beacon_switch is on AND throttling beacon samples (Math.random() => [0,1))
     if((shBoomrExt.beacon_switch.toLowerCase() === "on") && (Math.random() < shBoomrExt.sample_ratio)) {
       //check browser compatibility for Resource Timing and User Timing API
       if(!(("performance" in window)&&("timing" in window.performance)&&(performance.now))) {
         BOOMR.info("Browser compatibility check failed!");
-        return;
+        return false;
       }
       var isMatched = false;
       var url = BOOMR.utils.cleanupURL(doc.URL.replace(/#.*/, ""));
@@ -69,13 +69,14 @@ var shBoomrExt = {
 
       if (!isMatched) {
         BOOMR.info(url + " This URL isn't match, check your url_pattern!");
-        return;
+        return false;
       } else {
         BOOMR.info(url + " This URL is matched!");
+        return true;
       }
     } else {
       BOOMR.info("RUM feature not enabled!");
-      return;
+      return false;
     }
   },
 

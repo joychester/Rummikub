@@ -803,7 +803,10 @@ BOOMR_check_doc_domain();
 			}
 
 			//beacon_switch, sample_ratio, url_pattern and browser compatibility check, d for w.document
-			shBoomrExt.beaconSwitchCheck(d);
+			if (!shBoomrExt.isBeaconEnabled(d)) {
+				//exit init fucntion once Beacon is not enabled
+				return;
+			}
 
 			//set timeout to send beacon out, cover 2 cases: page timeout or no page_ready() defined on the page
 			shBoomrExt.sendTimeoutBeacon();
