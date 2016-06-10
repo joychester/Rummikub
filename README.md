@@ -72,10 +72,10 @@ if("BOOMR" in window && "performance" in window) {
 
   //Add custom metrics Vars if Resource timing API supported
   //Safari and browsers on IOS which are using WKwebview do not support Resource Timing API: https://www.stevesouders.com/blog/2014/10/09/do-u-webview/  
-  BOOMR.addUMVar('t_css', 'loginCSS done blocking');  
-  BOOMR.addUMVar('t_js', 'loginJS done blocking');  
-  BOOMR.addUMVar('t_heroimg_loaded', 'hero img loaded');  
-  BOOMR.addUMVar('t_heroimg_onload', 'hero img onload');  
+  SHBoomrModule.addUMVar('t_css', 'loginCSS done blocking');  
+  SHBoomrModule.addUMVar('t_js', 'loginJS done blocking');  
+  SHBoomrModule.addUMVar('t_heroimg_loaded', 'hero img loaded');  
+  SHBoomrModule.addUMVar('t_heroimg_onload', 'hero img onload');  
 
   //Trigger Page_ready event to sendbeacon
   BOOMR.page_ready();

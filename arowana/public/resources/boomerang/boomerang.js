@@ -803,13 +803,13 @@ BOOMR_check_doc_domain();
 			}
 
 			//beacon_switch, sample_ratio, url_pattern and browser compatibility check, d for w.document
-			if (!shBoomrExt.isBeaconEnabled(d)) {
+			if (!SHBoomrModule.isBeaconEnabled(d)) {
 				//exit init fucntion once Beacon is not enabled
 				return;
 			}
 
 			//set timeout to send beacon out, cover 2 cases: page timeout or no page_ready() defined on the page
-			shBoomrExt.sendTimeoutBeacon();
+			SHBoomrModule.sendTimeoutBeacon();
 
 			if (config.primary && impl.handlers_attached) {
 				return this;
@@ -1294,7 +1294,7 @@ BOOMR_check_doc_domain();
 			impl.fireEvent("before_beacon", impl.vars);
 
 			//Add Var for security
-			shBoomrExt.addSecurityVar();
+			SHBoomrModule.addSecurityVar();
 
 			// Don't send a beacon if no beacon_url has been set
 			// you would do this if you want to do some fancy beacon handling
@@ -1306,7 +1306,7 @@ BOOMR_check_doc_domain();
 			}
 
 			//remove vars defined in blacklist
-			shBoomrExt.removeVarsFromBlacklist();
+			SHBoomrModule.removeVarsFromBlacklist();
 
 			form = document.createElement("form");
 			length = BOOMR.utils.pushVars(form, impl.vars);
@@ -1321,10 +1321,10 @@ BOOMR_check_doc_domain();
 			}
 
 			//delay sending beacon
-			var t = shBoomrExt.beacon_delay;
-			if (t > 0 && impl.vars["timeout"] !== "true") {
+			var t = SHBoomrModule.getBeaconDelayVal();
 
-				shBoomrExt.deplayToSendBeacon(form, impl, length);
+			if (t > 0 && impl.vars["timeout"] !== "true") {
+				SHBoomrModule.deplayToSendBeacon(form, impl, length);
 			} else {
 				// using 2000 here as a de facto maximum URL length based on:
 				// http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers

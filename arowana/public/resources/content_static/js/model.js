@@ -11,10 +11,10 @@ app.controller('RUMController',function($scope, $http, $q){
                   BOOMR.addVar('user_timing',window.performance.now().toFixed(1));
 
                   //Add custom metrics Var if Resource timing API supported
-                  shBoomrExt.addUMVar('t_css', 'loginCSS done blocking');
-                  shBoomrExt.addUMVar('t_js', 'loginJS done blocking');
-                  shBoomrExt.addUMVar('t_heroimg_loaded', 'hero img loaded');
-                  shBoomrExt.addUMVar('t_heroimg_onload', 'hero img onload');
+                  SHBoomrModule.addUMVar('t_css', 'loginCSS done blocking');
+                  SHBoomrModule.addUMVar('t_js', 'loginJS done blocking');
+                  SHBoomrModule.addUMVar('t_heroimg_loaded', 'hero img loaded');
+                  SHBoomrModule.addUMVar('t_heroimg_onload', 'hero img onload');
 
                   //Trigger Page_ready event to send beacon
                   BOOMR.page_ready();
