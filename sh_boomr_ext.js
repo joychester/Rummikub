@@ -21,7 +21,11 @@ var SHBoomrModule = (function () {
     //===customized parameters used in BOOMR.sendData();===
     var blacklist = [
         "v", // Boomerang parameters
-        "rt.start", "rt.tstart", "rt.bstart", "rt.end", "r", "vis.st", "vis.lh", "r2" //roundtrip plugin parameters
+        "rt.start", "rt.tstart", "rt.bstart", "rt.end", "r", "vis.st", "vis.lh", "r2", //roundtrip plugin params
+        "nt_red_cnt", "nt_nav_type", "nt_red_st", "nt_red_end", "nt_fet_st", "nt_dns_st", //navigationTiming plugin params
+        "nt_dns_end", "nt_con_st", "nt_req_st", "nt_res_st", "nt_res_end", "nt_domloading",
+        "nt_domint", "nt_domcontloaded_st", "nt_domcontloaded_end", "nt_load_st", "nt_unload_st",
+        "nt_unload_end", "nt_spdy", "nt_cinf", "nt_first_paint"
         //other plugins parameters
     ];
 

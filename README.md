@@ -1,9 +1,7 @@
-
-# Rummikub
+# Submarine
+SH Boomerang open source solution
 
 ### Intro
-RUM solutions POC, using [Custom metrics]/Boomerang/BoomCatch/ServiceWorker. Demo site built with ruby sinatra frame work and AngularJS.
-
 Real User Monitoring ([RUM]) is a passive monitoring technology that records all user interaction with a website or client interacting with a server or cloud-based application. The real user performance data like user-perceived page load time becomes more important because of the rapid growth of SPA. The traditional onload event provided by browsers no longer make sense in such application.
 
 ### Workflow
@@ -47,7 +45,7 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 ```
   > * ~/workspace (master) $ npm install uglify-js -g  
   > Please make sure the boomerang Makefile exists
-  > * ~/workspace/Rummikub/arowana/public/resources/boomerang (master) $ make PLUGINS="rt.js boomer_init.js sh_boomr_ext.js" MINIFIER="uglifyjs -c -m"
+  > * ~/workspace/Rummikub/arowana/public/resources/boomerang (master) $ make PLUGINS="sh_boomr_ext.js rt.js navtiming.js boomer_init.js" MINIFIER="uglifyjs -c -m"
 ```
 *  **Step 5: Asynchronously include the script on your page:**
 
@@ -58,9 +56,9 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
     or "defer"(sometimes you can not) loading all related js files for debug purpose:  
 ```
 %script{:src => "/resources/boomerang/boomerang.js", :type => "text/javascript", :defer => ""}
+%script{:src => "/resources/boomerang/sh_boomr_ext.js", :type => "text/javascript", :defer => ""}
 %script{:src => "/resources/boomerang/rt.js", :type => "text/javascript", :defer => ""}
 %script{:src => "/resources/boomerang/boomer_init.js", :type => "text/javascript", :defer => ""}
-%script{:src => "/resources/boomerang/sh_boomr_ext.js", :type => "text/javascript", :defer => ""}
 ```
 
 *  **Step 6: instrument js code in a critical ajax call's success callback function:**
@@ -91,6 +89,10 @@ if("BOOMR" in window && "performance" in window) {
 * **t_done**: The same as user_timing, Perceived load time of the page.
 * **t_page**: t_page = t_done - t_resp.  
 * **t_other**: Additional timers(t_domloaded) set by page developer.
+* **nt_nav_st**: The time immediately after the user agent finishes prompting to unload the previous document, or fetchStart.
+* **nt_con_end**: The time immediately after the user agent finishes establishing the connection to the server to retrieve the current document.
+* **nt_domcomp**: The time immediately before the user agent sets the current document readiness to "complete".
+* **nt_load_end**: The time when the load event of the current document is completed.
 * **_**: Hash String for security reason
 * **timeout**: Timed out flag to indicate if really a timed out or missing probe  
 * **t_css**: (Optional)Time to stylesheets done blocking, resource timing API support needed  
