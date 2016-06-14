@@ -90,10 +90,10 @@ if("BOOMR" in window && "performance" in window) {
 * **t_done**: The same as user_timing, Perceived load time of the page.
 * **t_page**: t_page = t_done - t_resp.  
 * **t_other**: Additional timers(t_domloaded) set by page developer.
-* **nt_nav_st**: The time immediately after the user agent finishes prompting to unload the previous document, or fetchStart.
-* **nt_con_end**: The time immediately after the user agent finishes establishing the connection to the server to retrieve the current document.
-* **nt_domcomp**: The time immediately before the user agent sets the current document readiness to "complete".
-* **nt_load_end**: The time when the load event of the current document is completed.
+* **nt_nav_st**: 'navigationStart', The time immediately after the user agent finishes prompting to unload the previous document, or fetchStart.
+* **nt_con_end**: 'connectEnd', The time immediately after the user agent finishes establishing the connection to the server to retrieve the current document.
+* **nt_domcomp**: 'domComplete', The time immediately before the user agent sets the current document readiness to "complete".
+* **nt_load_end**: 'loadEventEnd', The time when the load event of the current document is completed.
 * **_**: Hash String for security reason
 * **timeout**: Timed out flag to indicate if really a timed out or missing probe  
 * **t_css**: (Optional)Time to stylesheets done blocking, resource timing API support needed  
