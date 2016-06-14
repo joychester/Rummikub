@@ -23,11 +23,7 @@ var SHBoomrModule = (function () {
     //===customized parameters used in BOOMR.sendData();===
     var blacklist = [
         "v", // Boomerang parameters
-        "rt.start", "rt.tstart", "rt.bstart", "rt.end", "r", "vis.st", "vis.lh", "r2", //roundtrip plugin params
-        "nt_red_cnt", "nt_nav_type", "nt_red_st", "nt_red_end", "nt_fet_st", "nt_dns_st", //navigationTiming plugin params
-        "nt_dns_end", "nt_con_st", "nt_req_st", "nt_res_st", "nt_res_end", "nt_domloading",
-        "nt_domint", "nt_domcontloaded_st", "nt_domcontloaded_end", "nt_load_st", "nt_unload_st",
-        "nt_unload_end", "nt_spdy", "nt_cinf", "nt_first_paint"
+        "rt.start", "rt.tstart", "rt.bstart", "rt.end", "r", "vis.st", "vis.lh", "r2" //roundtrip plugin params
         //other plugins parameters
     ];
 
@@ -239,6 +235,35 @@ var SHBoomrModule = (function () {
     };
 
     /**
+     * Add navigation timing measurements into beacon Vars, the same purpose to use navtiming.js plugin
+     * currently support navigationStart, connectEnd, domComplete, loadEventEnd
+     * @method addNavTimingVars
+     */
+    shBoomrExt.addNavTimingVars = function () {
+        var boomr = BOOMR;
+        var w = boomr.window, p, pn, pt, data;
+
+        if (this.complete) {
+          return this;
+        }
+
+        p = w.performance || w.msPerformance || w.webkitPerformance || w.mozPerformance;
+        if (p && p.timing && p.navigation) {
+            boomr.debug("This user agent supports NavigationTiming.");
+            pt = p.timing;
+            data = {
+              nt_nav_st: pt.navigationStart,
+              nt_con_end: pt.connectEnd,
+              nt_domcomp: pt.domComplete,
+              nt_load_end: pt.loadEventEnd
+            };
+            boomr.addVar(data);
+        } else {
+          boomr.debug("This user agent does not supports NavigationTiming.");
+        }
+    };
+
+    /**
      * Add Base64 security token to BOOMR Vars
      * @method addSecurityVar
      */
@@ -311,5 +336,6 @@ var SHBoomrModule = (function () {
         }, t);
         boomr.info("Timeout ID Set: " + timeoutID);
     };
+
     return shBoomrExt;
 }());

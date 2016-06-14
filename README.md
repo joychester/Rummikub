@@ -45,7 +45,7 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 ```
   > * ~/workspace (master) $ npm install uglify-js -g  
   > Please make sure the boomerang Makefile exists
-  > * ~/workspace/Rummikub/arowana/public/resources/boomerang (master) $ make PLUGINS="sh_boomr_ext.js rt.js navtiming.js boomer_init.js" MINIFIER="uglifyjs -c -m"
+  > * ~/workspace/Rummikub/arowana/public/resources/boomerang (master) $ make PLUGINS="sh_boomr_ext.js rt.js boomer_init.js" MINIFIER="uglifyjs -c -m"
 ```
 *  **Step 5: Asynchronously include the script on your page:**
 
@@ -58,7 +58,6 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 %script{:src => "/resources/boomerang/boomerang.js", :type => "text/javascript", :defer => ""}
 %script{:src => "/resources/boomerang/sh_boomr_ext.js", :type => "text/javascript", :defer => ""}
 %script{:src => "/resources/boomerang/rt.js", :type => "text/javascript", :defer => ""}
-%script{:src => "/resources/boomerang/navtiming.js", :type => "text/javascript", :defer => ""}
 %script{:src => "/resources/boomerang/boomer_init.js", :type => "text/javascript", :defer => ""}
 ```
 

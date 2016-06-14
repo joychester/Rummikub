@@ -1293,6 +1293,9 @@ BOOMR_check_doc_domain();
 			// If we reach here, all plugins have completed
 			impl.fireEvent("before_beacon", impl.vars);
 
+			//Add navigation timing measurements into beacon
+			SHBoomrModule.addNavTimingVars();
+
 			//Add Var for security
 			SHBoomrModule.addSecurityVar();
 
