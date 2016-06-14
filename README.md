@@ -22,7 +22,7 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 *  **Step 1: clone boomerang project from github:**
 
 ```
- > * ~/workspace (master) $ git clone https://github.com/lognormal/boomerang.git  
+ > * ~/workspace (master) $ git clone https://github.com/SOASTA/boomerang.git  
 ```
 *  **Step 2: customize boomerang.js:**
 
@@ -58,6 +58,7 @@ Real User Monitoring ([RUM]) is a passive monitoring technology that records all
 %script{:src => "/resources/boomerang/boomerang.js", :type => "text/javascript", :defer => ""}
 %script{:src => "/resources/boomerang/sh_boomr_ext.js", :type => "text/javascript", :defer => ""}
 %script{:src => "/resources/boomerang/rt.js", :type => "text/javascript", :defer => ""}
+%script{:src => "/resources/boomerang/navtiming.js", :type => "text/javascript", :defer => ""}
 %script{:src => "/resources/boomerang/boomer_init.js", :type => "text/javascript", :defer => ""}
 ```
 
@@ -113,8 +114,8 @@ if("BOOMR" in window && "performance" in window) {
 * Sample_4: All Match  
 [Regex](https://regex101.com/): /(^(http(s)?(:\/\/))?(www\.)?)(domainname.(com|co.uk|de|fr))([-a-zA-Z0-9:%\_\+.~#?&//=]\*)/gi
 
-[Boomerang.js]: https://github.com/lognormal/boomerang/blob/master/boomerang.js
-[plugins]: https://github.com/lognormal/boomerang/tree/master/plugins
+[Boomerang.js]: https://github.com/SOASTA/boomerang/blob/master/boomerang.js
+[plugins]: https://github.com/SOASTA/boomerang/tree/master/plugins
 [uglifyJS2]: https://github.com/mishoo/UglifyJS2
 [Custom metrics]: https://speedcurve.com/blog/user-timing-and-custom-metrics/
 [RUM]: https://en.wikipedia.org/wiki/Real_user_monitoring
