@@ -1,5 +1,7 @@
 
 var SHBoomrModule = (function () {
+    "use strict";
+
     var shBoomrExt = {};
 
     var ON = "ON";
@@ -41,7 +43,6 @@ var SHBoomrModule = (function () {
      * @return {String} Returns Base64 encoded string
      */
     function _encodeB64String(str) {
-        "use strict";
         var Base64 = {
             _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
             encode: function (e) {
